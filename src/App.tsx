@@ -1,256 +1,13 @@
-// @ts-nocheck — Prototype kept verbatim for Slice 0. Strict typing happens in
-// Slice 1 (types.ts + data extraction); this directive is removed there. See PROJECT.md §10.
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, SlidersHorizontal, Sparkles, X, Heart, Smartphone, Monitor, ChevronRight, Info, ArrowUpRight, HelpCircle, Layers, Menu } from 'lucide-react';
-
-const translations = {
-  az: {
-    heroSub: "YENİ NƏSİL REKLAM QALEREYASI",
-    heroTitlePart1: "Yeni Kampaniyanıza",
-    heroTitleHighlight: "Salam",
-    heroTitlePart2: "deyin",
-    heroDesc: "Brendinizin rəqəmsal dünyadakı vizual gücünü kəşf edin. İnteraktiv, sürətli və konversiya yönümlü banner dizaynlarımızın canlandığı unikal platforma.",
-    btnMagic: "Bizim Möcüzəmiz ✨",
-    btnJoin: "Bizə qoşul",
-    navHome: "Ana səhifə",
-    navGallery: "Qalereya",
-    navAbout: "Haqqımızda",
-    navServices: "Xidmətlər",
-    navPortfolio: "Portfolio",
-    navSupport: "Dəstək",
-    navContact: "Əlaqə",
-    searchPlaceholder: "Reklam növlərini və ya ölçülərini axtarın...",
-    filterTitle: "Filtrlər",
-    filterFormat: "Format",
-    filterSize: "Ölçü",
-    filterCategory: "Kateqoriya",
-    all: "Hamısı",
-    favorites: "Sevimlilər",
-    statsTitle: "Rəqəmlər Bizim Uğuru Hekayəmizi Təsdiq edir",
-    statsDesc: "Netant, təsirli nəticələr və davamlı müvəffəqiyyət təqdim etməklə etibar qazanır. Təcrübə və nailiyyətlərlə hədəflərinizi reallığa çeviririk.",
-    viewDemo: "İnteraktiv Baxış",
-    customizeBtn: "Fərdiləşdir",
-    dimension: "Ölçü formatı",
-    formatType: "Format növü",
-    industry: "Sahə / Sektor",
-    noResults: "Axtarışınıza uyğun heç bir banner tapılmadı.",
-    clearFilters: "Filtrləri sıfırla",
-    editorTitle: "Canlı Reklam Redaktoru",
-    editText: "Mətni redaktə et",
-    editCta: "CTA Düyməsi",
-    editBg: "Fon rəngi",
-    previewDevice: "Cihaz Görünüşü",
-    mockupPhone: "Mobil Mockup",
-    mockupDesktop: "Müstəqil Görünüş",
-    applyChanges: "Tətbiq et",
-    copied: "Link kopyalandı!",
-    exportJson: "Kodu kopyala",
-    close: "Bağla",
-    featuredBadge: "Seçilmiş Dizayn",
-    interactiveLive: "CANLI ANİMASİYA",
-    trustedBy: "Bu yüksək səviyyəli brendlərlə əməkdaşlıq edirik",
-    footerText: "© 2026 Netant Reklam Qalereyası. Bütün hüquqlar qorunur."
-  },
-  en: {
-    heroSub: "NEXT-GENERATION AD GALLERY",
-    heroTitlePart1: "Say",
-    heroTitleHighlight: "Hello",
-    heroTitlePart2: "to your new Campaign",
-    heroDesc: "Discover the visual dominance of your brand in the digital spectrum. A unique interactive platform showcasing state-of-the-art banners with ultra high conversion rates.",
-    btnMagic: "Our Magic ✨",
-    btnJoin: "Join us",
-    navHome: "Home",
-    navGallery: "Gallery",
-    navAbout: "About Us",
-    navServices: "Services",
-    navPortfolio: "Portfolio",
-    navSupport: "Support",
-    navContact: "Contact",
-    searchPlaceholder: "Search ad formats, layouts or sizes...",
-    filterTitle: "Filters",
-    filterFormat: "Format",
-    filterSize: "Dimensions",
-    filterCategory: "Industry",
-    all: "All",
-    favorites: "Favorites",
-    statsTitle: "Numbers Validate Our Success Story",
-    statsDesc: "Netant builds reputation by delivering high impact results and consistent marketing success. We transform your digital vision into performance reality.",
-    viewDemo: "Interactive View",
-    customizeBtn: "Customize Ad",
-    dimension: "Dimensions",
-    formatType: "Format Type",
-    industry: "Industry / Sector",
-    noResults: "No banner ads matched your filtering criteria.",
-    clearFilters: "Reset Filters",
-    editorTitle: "Live Ad Sandbox Configurator",
-    editText: "Edit Ad Headline",
-    editCta: "CTA Button Text",
-    editBg: "Background Style",
-    previewDevice: "Preview Frame",
-    mockupPhone: "Mobile Mockup",
-    mockupDesktop: "Standalone Canvas",
-    applyChanges: "Apply Changes",
-    copied: "Link Copied!",
-    exportJson: "Copy CSS/JSON",
-    close: "Close",
-    featuredBadge: "Featured Masterpiece",
-    interactiveLive: "LIVE INTERACTIVE PREVIEW",
-    trustedBy: "Collaborating with high-tier global brands",
-    footerText: "© 2026 Netant Ad Gallery. All rights reserved."
-  }
-};
-
-const INITIAL_BANNERS = [
-  {
-    id: "b1",
-    title: "Eco Fintech Mobile",
-    category: "Fintech",
-    format: "HTML5 Animated",
-    size: "300x250",
-    ratioLabel: "Medium Rectangle",
-    primaryColor: "#5d6964", // Sage Green
-    accentColor: "#eeddc5",
-    textColor: "#ffffff",
-    headline: "Gələcəyin yaşıl investisiyası",
-    headlineEn: "Invest in the green future",
-    cta: "İndi başla",
-    ctaEn: "Get Started",
-    description: "Elegant green animations ideal for sustainable banking solutions.",
-    animationSpeed: "normal",
-    isSparkle: true
-  },
-  {
-    id: "b2",
-    title: "Premium Sneaker Release",
-    category: "Retail",
-    format: "Rich Media",
-    size: "300x300",
-    ratioLabel: "Square Banner",
-    primaryColor: "#856157", // Terracotta Rose
-    accentColor: "#121115",
-    textColor: "#ffffff",
-    headline: "Sərhədləri aşan rahatlıq",
-    headlineEn: "Comfort beyond boundaries",
-    cta: "Kəşf et",
-    ctaEn: "Discover Now",
-    description: "Smooth continuous carousel ideal for retail conversions and interactive sneaker displays.",
-    animationSpeed: "fast",
-    isSparkle: true
-  },
-  {
-    id: "b3",
-    title: "Minimalist Travel Skyscraper",
-    category: "Travel",
-    format: "HTML5 Animated",
-    size: "160x600",
-    ratioLabel: "Wide Skyscraper",
-    primaryColor: "#77698a", // Muted Lavender
-    accentColor: "#f0ebe1",
-    textColor: "#ffffff",
-    headline: "Yeni üfüqlər səni çağırır",
-    headlineEn: "New horizons are calling",
-    cta: "Bilet al",
-    ctaEn: "Book Flight",
-    description: "Tall aesthetic layout perfect for sidebars, displaying smooth cloud-rise animations.",
-    animationSpeed: "slow",
-    isSparkle: false
-  },
-  {
-    id: "b4",
-    title: "Food Delivery Promo",
-    category: "Food",
-    format: "Video Sim",
-    size: "728x90",
-    ratioLabel: "Leaderboard Banner",
-    primaryColor: "#a69b85", // Warm Ochre
-    accentColor: "#121115",
-    textColor: "#121115",
-    headline: "20 dəqiqədə isti qapında",
-    headlineEn: "Hot at your door in 20 mins",
-    cta: "Sifariş et",
-    ctaEn: "Order Now",
-    description: "Wide panoramic design highlighting rapid fast-food motion graphics.",
-    animationSpeed: "fast",
-    isSparkle: false
-  },
-  {
-    id: "b5",
-    title: "SaaS Cloud Tech",
-    category: "Tech",
-    format: "HTML5 Animated",
-    size: "300x250",
-    ratioLabel: "Medium Rectangle",
-    primaryColor: "#121115", // Premium Dark Charcoal
-    accentColor: "#c2b4a3",
-    textColor: "#ffffff",
-    headline: "Biznesini süni intellektlə idarə et",
-    headlineEn: "Drive your business with AI",
-    cta: "Yoxla",
-    ctaEn: "Try Free",
-    description: "Premium dark theme with sleek neon-glow cyber dots rotating organically.",
-    animationSpeed: "normal",
-    isSparkle: true
-  },
-  {
-    id: "b6",
-    title: "Exclusive Hotel & Spa",
-    category: "Travel",
-    format: "Static",
-    size: "300x300",
-    ratioLabel: "Square Banner",
-    primaryColor: "#c1b09b", // Soft Beige
-    accentColor: "#4a3c31",
-    textColor: "#4a3c31",
-    headline: "Ruhunuza və bədəninizə dinclik bəxş edin",
-    headlineEn: "Pamper your soul and mind",
-    cta: "Rezervasiya",
-    ctaEn: "Book Now",
-    description: "Elegant, minimalist luxury spa layout optimized for high class audiences.",
-    animationSpeed: "none",
-    isSparkle: false
-  },
-  {
-    id: "b7",
-    title: "Crypto Wallet Leaderboard",
-    category: "Fintech",
-    format: "Rich Media",
-    size: "728x90",
-    ratioLabel: "Leaderboard Banner",
-    primaryColor: "#5d6964", // Sage Green
-    accentColor: "#ffffff",
-    textColor: "#ffffff",
-    headline: "Kripto aktivləriniz vahid məkanda",
-    headlineEn: "All crypto assets in one hub",
-    cta: "Qoşul",
-    ctaEn: "Enter Web3",
-    description: "High performance slim ad containing simulated coin pulsing effects.",
-    animationSpeed: "fast",
-    isSparkle: true
-  },
-  {
-    id: "b8",
-    title: "Aesthetic Fashion Mobile Banner",
-    category: "Retail",
-    format: "HTML5 Animated",
-    size: "320x50",
-    ratioLabel: "Mobile Banner",
-    primaryColor: "#856157", // Terracotta Rose
-    accentColor: "#ffffff",
-    textColor: "#ffffff",
-    headline: "Yeni Kolleksiya 2026",
-    headlineEn: "New 2026 Collection",
-    cta: "Bax",
-    ctaEn: "View",
-    description: "Highly compact banner crafted for seamless smartphone integration with slide animations.",
-    animationSpeed: "normal",
-    isSparkle: false
-  }
-];
+import type { Banner, Lang } from './types';
+import { translations } from './data/translations';
+import { INITIAL_BANNERS } from './data/banners';
 
 export default function App() {
-  const [lang, setLang] = useState('az');
-  const [activeTab, setActiveTab] = useState('gallery'); // gallery | stats
-  const [favorites, setFavorites] = useState([]);
+  const [lang, setLang] = useState<Lang>('az');
+  const [activeTab, setActiveTab] = useState<'gallery' | 'stats'>('gallery'); // gallery | stats
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   const [search, setSearch] = useState('');
   const [filterFormat, setFilterFormat] = useState('All');
@@ -258,10 +15,10 @@ export default function App() {
   const [filterCategory, setFilterCategory] = useState('All');
   const [showOnlyFavs, setShowOnlyFavs] = useState(false);
 
-  const [selectedBanner, setSelectedBanner] = useState(null);
-  const [previewDevice, setPreviewDevice] = useState('desktop');
+  const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
+  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop');
 
-  const [toastMessage, setToastMessage] = useState(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
 
   // Reliable brand-font loader (an injected @import is often ignored).
@@ -273,9 +30,9 @@ export default function App() {
     return () => { document.head.removeChild(link); };
   }, []);
 
-  const triggerToast = (msg) => { setToastMessage(msg); setTimeout(() => setToastMessage(null), 3500); };
+  const triggerToast = (msg: string) => { setToastMessage(msg); setTimeout(() => setToastMessage(null), 3500); };
 
-  const toggleFavorite = (id, e) => {
+  const toggleFavorite = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (favorites.includes(id)) {
       setFavorites(favorites.filter(f => f !== id));
@@ -302,14 +59,14 @@ export default function App() {
     });
   }, [search, filterFormat, filterSize, filterCategory, showOnlyFavs, favorites]);
 
-  const handleOpenSandbox = (banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };
+  const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };
   const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setFilterCategory('All'); setSearch(''); setShowOnlyFavs(false); };
-  const goto = (tab) => { setActiveTab(tab); setSidebarOpen(false); };
+  const goto = (tab: 'gallery' | 'stats') => { setActiveTab(tab); setSidebarOpen(false); };
 
   const activeTranslations = translations[lang];
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || filterCategory !== 'All' || search !== '';
 
-  const navItemClass = (active) =>
+  const navItemClass = (active: boolean) =>
     `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${active ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115] hover:bg-[#121115]/10'}`;
 
   return (
