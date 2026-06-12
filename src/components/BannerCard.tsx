@@ -13,8 +13,13 @@ type BannerCardProps = {
 
 export default function BannerCard({ banner, isFav, lang, t, onOpen, onToggleFavorite }: BannerCardProps) {
   return (
-<div onClick={() => onOpen(banner)}
-        className="group bg-[#121115] rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 flex flex-col cursor-pointer border border-white/5">
+    <div
+      onClick={() => onOpen(banner)}
+      role="button"
+      tabIndex={0}
+      aria-label={banner.title}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(banner); } }}
+      className="group bg-[#121115] rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 flex flex-col cursor-pointer border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]">
         <div className="p-6 bg-stone-900 border-b border-white/5 relative flex items-center justify-center min-h-[300px] overflow-hidden">
           <div className="absolute inset-0 bg-[#121115] opacity-90"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-gradient-to-tr from-white/5 to-transparent blur-2xl"></div>
@@ -38,7 +43,7 @@ export default function BannerCard({ banner, isFav, lang, t, onOpen, onToggleFav
             </div>
           </div>
           <div className="absolute top-4 right-4 flex items-center gap-2">
-            <button onClick={(e) => onToggleFavorite(banner.id, e)} className="w-8 h-8 rounded-full bg-[#121115]/70 backdrop-blur-md flex items-center justify-center text-[#b4b3ac] hover:text-red-400 transition-colors">
+            <button onClick={(e) => onToggleFavorite(banner.id, e)} aria-label={lang === 'az' ? (isFav ? 'Sevimlilərdən çıxar' : 'Sevimlilərə əlavə et') : (isFav ? 'Remove from favorites' : 'Add to favorites')} className="w-8 h-8 rounded-full bg-[#121115]/70 backdrop-blur-md flex items-center justify-center text-[#b4b3ac] hover:text-red-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]">
               <Heart className={`w-4 h-4 ${isFav ? 'fill-red-400 text-red-400' : ''}`} />
             </button>
           </div>

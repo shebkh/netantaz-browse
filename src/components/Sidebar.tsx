@@ -30,7 +30,7 @@ type SidebarProps = {
 };
 
 const navItemClass = (active: boolean) =>
-  `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${active ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115] hover:bg-[#121115]/10'}`;
+  `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${active ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115] hover:bg-[#121115]/10'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]`;
 
 export default function Sidebar({
   open,
@@ -71,7 +71,7 @@ export default function Sidebar({
             <span className="text-2xl font-extrabold tracking-tighter brand-display text-[#121115] cursor-pointer" onClick={onLogoClick}>
               net<span className="text-[#856157]">a</span>nt<span className="text-[#77698a] text-base">®</span>
             </span>
-            <button onClick={onClose} className="lg:hidden w-8 h-8 rounded-full bg-[#121115]/5 flex items-center justify-center"><X className="w-4 h-4" /></button>
+            <button onClick={onClose} aria-label={t.close} className="lg:hidden w-8 h-8 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><X className="w-4 h-4" /></button>
           </div>
 
           {/* Language */}

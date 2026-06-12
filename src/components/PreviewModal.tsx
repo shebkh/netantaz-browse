@@ -70,14 +70,14 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
           <div className="flex items-center justify-end mb-6">
             <div className="flex bg-white/80 p-1 rounded-full border border-[#121115]/10 text-xs">
               <button
-                onClick={() => onDeviceChange('desktop')}
+                onClick={() => onDeviceChange('desktop')} aria-label={t.mockupDesktop}
                 className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'desktop' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
               >
                 <Monitor className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{t.mockupDesktop}</span>
               </button>
               <button
-                onClick={() => onDeviceChange('mobile')}
+                onClick={() => onDeviceChange('mobile')} aria-label={t.mockupPhone}
                 className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'mobile' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
               >
                 <Smartphone className="w-3.5 h-3.5" />

@@ -108,7 +108,7 @@ export default function CreativesGallery() {
 
           {/* Mobile top bar */}
           <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#b4b3ac]/85 backdrop-blur-xl border-b border-[#121115]/10">
-            <button onClick={() => setSidebarOpen(true)} className="w-9 h-9 rounded-full bg-[#121115]/5 flex items-center justify-center"><Menu className="w-4 h-4" /></button>
+            <button onClick={() => setSidebarOpen(true)} aria-label={lang === 'az' ? 'Menyu' : 'Menu'} className="w-9 h-9 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><Menu className="w-4 h-4" /></button>
             <span className="text-xl font-extrabold tracking-tighter brand-display">net<span className="text-[#856157]">a</span>nt</span>
             <div className="w-9" />
           </div>
