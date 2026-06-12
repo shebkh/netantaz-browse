@@ -1,3 +1,77 @@
+/* Brand fonts. Also loaded via <link> in index.html and a runtime injector in
+   CreativesGallery; this @import is the prototype's original mechanism, kept for
+   behavior parity. Must stay above @tailwind for valid CSS @import ordering. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===== Moved out of the prototype's inline <style> (Slice 2) ===== */
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.brand-display {
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Beautiful text-color transitions & blends */
+.gradient-text {
+  background: linear-gradient(135deg, #856157 0%, #5d6964 50%, #77698a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  font-weight: 800;
+}
+
+/* CSS Animation simulation routines for Live Ad previews */
+@keyframes subtlePulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+@keyframes marqueeWave {
+  0% { transform: translateX(5%); }
+  50% { transform: translateX(-5%); }
+  100% { transform: translateX(5%); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-ad-pulse {
+  animation: subtlePulse 4s ease-in-out infinite;
+}
+
+.animate-ad-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-ad-slide {
+  animation: marqueeWave 8s ease-in-out infinite;
+}
+
+.premium-grain {
+  background-image: radial-gradient(rgba(18, 17, 21, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Hide default scrollbars visually */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

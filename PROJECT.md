@@ -59,7 +59,6 @@ src/
     GalleryGrid.tsx              # results header + grid + empty state
     BannerCard.tsx               # one card (favorite, hover overlay)
     PreviewModal.tsx             # view-only preview + device switcher
-    StatsSection.tsx             # dark stats panel
     Toast.tsx                    # transient toast
 index.html                       # font links
 tailwind.config.js               # tokens
@@ -67,7 +66,7 @@ tailwind.config.js               # tokens
 
 ## 5. Scope
 **In scope:** the gallery, sidebar nav+filters, AZ/EN, favorites (in-memory), preview
-modal (view-only), stats/about view, responsive drawer, accessibility.
+modal (view-only), responsive drawer, accessibility.
 
 **Out of scope (do NOT build):** any ad editor/customizer, copy-code/export/share,
 localStorage/sessionStorage persistence, auth, a CMS/backend, analytics, routing
@@ -92,7 +91,7 @@ type Banner = {
   cta: string;             // AZ
   ctaEn: string;
   description: string;
-  animationSpeed: "fast" | "slow" | "none";
+  animationSpeed: "fast" | "slow" | "normal" | "none"; // "normal"/"none" => no animation in current card logic
   isSparkle: boolean;
 };
 ```
@@ -151,10 +150,10 @@ target structure (a "strangler" refactor) — the app runs after **every** slice
 | 0 | Scaffold & baseline | Vite/React/TS/Tailwind/lucide set up; prototype runs as-is |
 | 1 | Types & data | `types.ts`, `data/banners.ts`, `data/translations.ts` extracted |
 | 2 | Shell & styles | `CreativesGallery.tsx` owns state; `Toast.tsx`; styles → `index.css` |
-| 3 | Sidebar | `Sidebar.tsx` (nav + filters + lang + contact + mobile drawer) |
+| 3 | Sidebar | `Sidebar.tsx` (nav + filters + lang + mobile drawer) |
 | 4 | Gallery | `GalleryGrid.tsx` + `BannerCard.tsx` |
 | 5 | Preview | `PreviewModal.tsx` (view-only, device switch, Esc, focus, reduced-motion) |
-| 6 | Stats & polish | `StatsSection.tsx`; real logo wired; a11y/QA pass |
+| 6 | Polish | real logo wired; a11y/QA pass |
 | 7 | Demos (future) | Real thumbnails + `public/demos/<id>` via sandboxed iframe; (optional) tests |
 
 ---
@@ -180,8 +179,16 @@ target structure (a "strangler" refactor) — the app runs after **every** slice
 ### Slice 1 — Types & data
 **Goal:** data and types live in their own files; UI unchanged.
 **Files:** `src/types.ts`, `src/data/banners.ts`, `src/data/translations.ts`, `src/App.tsx` (imports).
-**Done when:** `INITIAL_BANNERS` is typed `Banner[]`, translations typed, `App.tsx` imports
-them, UI is pixel-identical, `tsc --noEmit` clean.
+**Steps:**
+- Define `Lang` and `Banner` in `types.ts` per §6. `animationSpeed` is
+  `"fast" | "slow" | "normal" | "none"` — **keep the prototype data verbatim** (b1/b5 stay
+  `"normal"`, b6 stays `"none"`); the type is widened to fit the data, behavior is unchanged.
+- Move `INITIAL_BANNERS` → `data/banners.ts` typed `Banner[]`; move `translations` →
+  `data/translations.ts` typed.
+- **Remove the `// @ts-nocheck` header** from `App.tsx` and fix the resulting strict errors
+  (type `useState` generics, annotate handler params, etc.). No behavior changes.
+**Done when:** `INITIAL_BANNERS` is `Banner[]`, translations typed, `@ts-nocheck` gone,
+UI is pixel-identical, `tsc --noEmit` clean, `npm run build` passes.
 
 ### Slice 2 — Shell & styles
 **Goal:** state lives in a shell component; styles leave the JSX.
@@ -196,9 +203,9 @@ them, UI is pixel-identical, `tsc --noEmit` clean.
 ### Slice 3 — Sidebar
 **Goal:** sidebar is its own component.
 **Files:** `src/components/Sidebar.tsx`, `CreativesGallery.tsx`.
-**Scope:** logo, AZ/EN toggle, nav (Gallery / Favorites+count / About), filters
-(search, Format, Size, Category, clear-all — visible only on Gallery view), contact button;
-sticky rail ≥1024px, off-canvas drawer + hamburger + backdrop below 1024px. Typed props.
+**Scope:** logo, AZ/EN toggle, nav (Gallery / Favorites+count), filters
+(search, Format, Size, Category, clear-all); sticky rail ≥1024px, off-canvas drawer +
+hamburger + backdrop below 1024px. Typed props.
 **Done when:** all nav/filter interactions and the mobile drawer work; build clean.
 
 ### Slice 4 — Gallery
@@ -216,12 +223,12 @@ content; close on X / backdrop / Esc; restore focus to the triggering card; resp
 `prefers-reduced-motion`. Typed props.
 **Done when:** open/close, device switch, Esc, and focus restore all work; build clean.
 
-### Slice 6 — Stats & polish
-**Goal:** finish the split and polish.
-**Files:** `src/components/StatsSection.tsx`, `CreativesGallery.tsx`, plus the header logo.
-**Scope:** extract the About/stats panel; replace the text wordmark with
-`public/netant-logo.png`; pass over focus styles, aria-labels, and reduced-motion.
-**Done when:** About view works; logo renders; a11y self-checks pass; build clean.
+### Slice 6 — Polish
+**Goal:** finish the polish.
+**Files:** `CreativesGallery.tsx`, plus the header logo.
+**Scope:** replace the text wordmark with `public/netant-logo.png`; pass over focus
+styles, aria-labels, and reduced-motion.
+**Done when:** logo renders; a11y self-checks pass; build clean.
 
 ### Slice 7 — Demos (future)
 **Goal:** real previews. Replace card placeholders with `public/assets/thumbs/<id>.jpg`;
