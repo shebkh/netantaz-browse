@@ -15,7 +15,6 @@ export default function CreativesGallery() {
   const [search, setSearch] = useState('');
   const [filterFormat, setFilterFormat] = useState('All');
   const [filterSize, setFilterSize] = useState('All');
-  const [filterCategory, setFilterCategory] = useState('All');
   const [showOnlyFavs, setShowOnlyFavs] = useState(false);
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
@@ -47,8 +46,7 @@ export default function CreativesGallery() {
   };
 
   const formats = ['All', 'HTML5 Animated', 'Rich Media', 'Video Sim', 'Static'];
-  const sizes = ['All', '300x250', '300x300', '160x600', '728x90', '320x50'];
-  const categories = ['All', 'Fintech', 'Retail', 'Travel', 'Food', 'Tech'];
+  const sizes = ['All', '120x600', '160x600', '200x200', '240x400', '300x250', '300x300', '300x600', '320x50', '320x100', '336x280', '468x60', '580x400', '728x90', '930x180', '970x90', '970x250', '1080x1080', '1080x1920', '1500x784'];
 
   const filteredBanners = useMemo(() => {
     return INITIAL_BANNERS.filter(item => {
@@ -57,17 +55,16 @@ export default function CreativesGallery() {
       return (search === '' || nameMatch)
         && (filterFormat === 'All' || item.format === filterFormat)
         && (filterSize === 'All' || item.size === filterSize)
-        && (filterCategory === 'All' || item.category === filterCategory)
         && (!showOnlyFavs || favorites.includes(item.id));
     });
-  }, [search, filterFormat, filterSize, filterCategory, showOnlyFavs, favorites]);
+  }, [search, filterFormat, filterSize, showOnlyFavs, favorites]);
 
   const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };
-  const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setFilterCategory('All'); setSearch(''); setShowOnlyFavs(false); };
+  const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setSearch(''); setShowOnlyFavs(false); };
   const goto = () => { setSidebarOpen(false); };
 
   const activeTranslations = translations[lang];
-  const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || filterCategory !== 'All' || search !== '';
+  const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || search !== '';
 
   return (
     <div className="min-h-screen font-sans bg-[#b4b3ac] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
@@ -92,13 +89,10 @@ export default function CreativesGallery() {
           onSearchChange={setSearch}
           formats={formats}
           sizes={sizes}
-          categories={categories}
           filterFormat={filterFormat}
           onFilterFormat={setFilterFormat}
           filterSize={filterSize}
           onFilterSize={setFilterSize}
-          filterCategory={filterCategory}
-          onFilterCategory={setFilterCategory}
           hasActiveFilters={hasActiveFilters}
           onClearFilters={clearFilters}
         />

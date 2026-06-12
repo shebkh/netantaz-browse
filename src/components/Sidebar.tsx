@@ -18,13 +18,10 @@ type SidebarProps = {
   onSearchChange: (value: string) => void;
   formats: string[];
   sizes: string[];
-  categories: string[];
   filterFormat: string;
   onFilterFormat: (value: string) => void;
   filterSize: string;
   onFilterSize: (value: string) => void;
-  filterCategory: string;
-  onFilterCategory: (value: string) => void;
   hasActiveFilters: boolean;
   onClearFilters: () => void;
 };
@@ -47,13 +44,10 @@ export default function Sidebar({
   onSearchChange,
   formats,
   sizes,
-  categories,
   filterFormat,
   onFilterFormat,
   filterSize,
   onFilterSize,
-  filterCategory,
-  onFilterCategory,
   hasActiveFilters,
   onClearFilters,
 }: SidebarProps) {
@@ -129,18 +123,6 @@ export default function Sidebar({
                     className={`px-3 py-2 rounded-xl text-[11px] font-bold tracking-wide transition-all text-left flex items-center justify-between ${filterSize === sz ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
                     <span>{sz === 'All' ? t.all : sz}</span>
                     {filterSize === sz && <div className="w-1.5 h-1.5 rounded-full bg-[#856157]" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{t.filterCategory}</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {categories.map((cat) => (
-                  <button key={cat} onClick={() => onFilterCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide transition-all ${filterCategory === cat ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
-                    {cat === 'All' ? t.all : cat}
                   </button>
                 ))}
               </div>
