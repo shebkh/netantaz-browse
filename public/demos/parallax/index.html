@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3d parallax</title>
+    <link rel="stylesheet" href="./css/main.css?v3">
+</head>
+
+<body>
+    <div class="banner_card">
+        <div class="wrapper">
+            <div class="wrapper_front">
+                <div class="bg_cn_1">
+                    <div class="bg_cn_2">
+                        <div class="pic1">
+                            <img src="./img/background2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="fg_cn_1">
+                    <div class="fg_cn_2">
+                        <div class="pic2">
+                            <img src="./img/banner2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper_back">
+                <div class="bg_cn_1">
+                    <div class="bg_cn_2">
+                        <div class="pic1">
+                            <img src="./img/background3.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="fg_cn_1">
+                    <div class="fg_cn_2">
+                        <div class="pic2">
+                            <img src="./img/banner3.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/main.js?v6"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const element = document.querySelector(".wrapper");
+            if (element) {
+                element.addEventListener("click", function () {
+                    window.open("https://smartbee.az", "_blank");
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <script
+        type="text/javascript">var __eventUrl = "https://dsp-ap.eskimi.com/event/pixel?typeCat=event&test=1&type="; var __clickUrl = "https://dsp-trk.eskimi.com/click?test=222323&chk=0&crid=1429686&c=";</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="./assets/js/Draggable.js"></script>
+    <script src="./assets/js/gsap.js"></script>
+    <script src="./assets/js/tree.js"></script>
+    <script src="./assets/js/SubsurfaceScatteringShader.js"></script>
+    <script src="./assets/js/GLTFLoader.js"></script>
+    <script src="./assets/js/lil-gui.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body style="margin:0;padding:0;">
+    <div id="adsArea">
+        <div id="adArea" class="rct" style="opacity: 1;">
+            <div id="bg" class="rct opacity0"
+                style="background-image: url(./assets/img/bg.jpg); position: absolute; width: 600px; height: 1200px; transform-origin: 50% 50%; top: -300px; left: -150px; transform: scale(0.5, 0.5); opacity: 1;">
+            </div>
+            <div id="can_shadow" class="rct"></div>
+            <div id="ui1" class="rct noDisplay" style="display: flex;">
+                <div id="textCont" class="rct opacity0"
+                    style="opacity: 1; visibility: inherit; transform-origin: 50% 20%; transform: translate(0px, 0px);">
+                    <div id="text" class=""
+                        style="background-image: url(./assets/img/text.png); position: absolute; width: 600px; height: 1200px; transform-origin: 50% 50%; top: -300px; left: -150px; transform: scale(0.5, 0.5);">
+                    </div>
+                </div>
+                <div id="logo" class="opacity0"
+                    style="background-image: url(./assets/img/logo.png); position: absolute; width: 600px; height: 1200px; transform-origin: 50% 50%; top: -300px; left: -150px; transform: scale(0.5, 0.5); opacity: 1; visibility: inherit;">
+                </div>
+            </div>
+            <div id="horCont" class="rct">
+                <div id="verCont" class="rct">
+                    <div id="container" class="opacity0" style="display: block; opacity: 1;"></div>
+                </div>
+            </div>
+            <div id="ui2" class="rct noDisplay" style="display: flex;">
+                <div id="ctaCont" class="rct opacity0"
+                    style="opacity: 1; visibility: inherit; transform-origin: 50% 90%; transform: translate(0px, 0px);">
+                    <div id="cta" class=""
+                        style="background-image: url(./assets/img/cta.png); position: absolute; width: 600px; height: 1200px; transform-origin: 50% 50%; top: -300px; left: -150px; transform: scale(0.5, 0.5);">
+                    </div>
+                </div>
+                <div id="cursorCont" class="rct" style="perspective: 800px; opacity: 0; visibility: hidden;">
+                    <div id="cursor" class=""
+                        style="background-image: url(./assets/img/cursor.png); position: absolute; width: 126px; height: 126px; opacity: 0.999; transform: translate3d(0.017px, 265px, 0px) rotateY(0.017deg) scale(0.65, 0.65);">
+                    </div>
+                </div>
+            </div>
+            <div id="dragEl" class="rct"
+                style="touch-action: none; cursor: grab; user-select: none; z-index: 1041; transform: translate3d(0px, 0px, 0px);">
+            </div>
+            <div id="ctaArea"></div>
+        </div>
+        <div id="aaa" class="noDisplay"><img id="c1"
+                src="./assets/img/c1.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="c2"
+                src="./assets/img/c2.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="c3"
+                src="./assets/img/c3.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="c4"
+                src="./assets/img/c4.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="c5"
+                src="./assets/img/c5.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="l1"
+                src="./assets/img/l1.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="l2"
+                src="./assets/img/l2.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="l3"
+                src="./assets/img/l3.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="l4"
+                src="./assets/img/l4.png"
+                style="position: absolute; width: 256px; height: 256px;"><img id="l5"
+                src="./assets/img/l5.png"
+                style="position: absolute; width: 256px; height: 256px;"></div>
+        <script>
+
+            var assets_url = "./assets/img/";
+
+            var assets = {
+                init: [
+                    {
+                        format: "jpg",
+                        type: "id",
+                        scale: 2,
+                        names: "bg"
+                    },
+                    {
+                        format: "png",
+                        type: "id",
+                        scale: 2,
+                        names: "cta text logo"
+                    },
+                    {
+                        format: "png",
+                        type: "id",
+                        scale: 1,
+                        names: "cursor"
+                    },
+                    {
+                        format: "png",
+                        type: "src",
+                        scale: 1,
+                        names: "c1 c2 c3 c4 c5 l1 l2 l3 l4 l5"
+                    },
+                ],
+                end: [
+                ]
+            }
+
+            var _dsptr = function (e) { var track = new Image(); track.src = __eventUrl + e; }
+
+            function ctaFunction() {
+                window.open(__clickUrl);
+            }
+
+            function startEvent(event_name) {
+                _dsptr(event_name);
+            }
+        </script>
+        <script src="./assets/js/main.js"></script>
+    </div>
+</body>
+
+</html>

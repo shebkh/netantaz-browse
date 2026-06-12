@@ -45,13 +45,21 @@ export default function CreativesGallery() {
     }
   };
 
-  const formats = ['All', 'HTML5 Animated', 'Rich Media', 'Video Sim', 'Static'];
-  const sizes = ['All', '120x600', '160x600', '200x200', '240x400', '300x250', '300x300', '300x600', '320x50', '320x100', '336x280', '468x60', '580x400', '728x90', '930x180', '970x90', '970x250', '1080x1080', '1080x1920', '1500x784'];
+  // Filter options derived from the actual banner data, plus broad format buckets.
+  const formats = ['All', ...Array.from(new Set([...INITIAL_BANNERS.map((b) => b.format).sort(), 'Animated', 'Static', 'Video', 'Interactive']))];
+  const sizes = [
+    'All',
+    ...Array.from(new Set(INITIAL_BANNERS.map((b) => b.size))).sort((a, b) => {
+      const [aw, ah] = a.split('x').map(Number);
+      const [bw, bh] = b.split('x').map(Number);
+      return aw - bw || ah - bh;
+    }),
+  ];
 
   const filteredBanners = useMemo(() => {
     return INITIAL_BANNERS.filter(item => {
       const s = search.toLowerCase();
-      const nameMatch = item.title.toLowerCase().includes(s) || item.headline.toLowerCase().includes(s) || (item.headlineEn && item.headlineEn.toLowerCase().includes(s));
+      const nameMatch = item.title.toLowerCase().includes(s) || item.format.toLowerCase().includes(s) || item.category.toLowerCase().includes(s);
       return (search === '' || nameMatch)
         && (filterFormat === 'All' || item.format === filterFormat)
         && (filterSize === 'All' || item.size === filterSize)

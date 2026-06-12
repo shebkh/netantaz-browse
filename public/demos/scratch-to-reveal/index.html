@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+        href="./css/main.css">
+    <script type="text/javascript"
+        src="./js/gsap.js"></script>
+    <script type="text/javascript"
+        src="./js/draggable.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adsArea">
+        <div id="adArea" class="rct wrapper opacity0" style="width: 300px; height: 250px; opacity: 1;">
+            <div id="pic2Cont" class="rct" style="width: 300px; height: 250px; transform: scale(1.46, 1.46);">
+                <div id="pic2" class=""
+                    style="transform-origin: 0% 0%; transform: translate(0px, 0px); position: absolute; width: 300px; height: 250px; background-image: url(./img/main.png);">
+                </div>
+            </div>
+            <div id="shade" class="rct" style="width: 300px; height: 250px; opacity: 0.5;"></div>
+            <div id="vs" class="vs"
+                style="width: 300px; height: 250px; transform-origin: 0% 0%; transform: translate(0px, 0px);"><canvas
+                    id="canvas" class="vs" width="300px" height="250px"
+                    style="width: 300px; height: 250px; transform-origin: 150px 125px; transform: translate(0px, 0px);"></canvas>
+            </div>
+            <div id="icon" class="abs center"
+                style="background-image: url(./img/icon.png); position: absolute; width: 180px; height: 180px; opacity: 1; transform: translate(-50%, -50%) translate3d(-24.4816px, 0px, 0px) scale(0.35, 0.35);">
+            </div>
+            <div id="dragEl" class="rct"
+                style="width: 300px; height: 250px; touch-action: none; cursor: grab; user-select: none;"></div>
+        </div>
+        <script>var slideImages = ["./img/background.png", "./img/banner_group.png"], assets_url = "./img/", assets = { init: [{ format: "png", type: "id", scale: 1, names: "icon" }, { format: "png", type: "img", names: "pic1" }], end: [] }, _dsptr = function (e) { var track; (new Image).src = "" + e }; function startEvent(event_name) { _dsptr(event_name) } function ctaFunction() { startEvent("Click_CTA"), window.open("https://smartbee.az/") }</script>
+        <script
+            src="./js/main.js"></script>
+    </div>
+</body>
+
+</html>

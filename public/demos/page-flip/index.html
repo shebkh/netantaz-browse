@@ -1,0 +1,45 @@
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ad.size" content="width=300,height=250">
+    <link rel="stylesheet" type="text/css"
+        href="./css/main.css">
+    <script
+        src="./js/gsap.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adsArea" class="adsize">
+        <div class="eskimi-flip-holder adsize" style="perspective: 600px;">
+            <div id="eskimi-flip" class="eskimi-flip adsize"
+                style="transform-style: preserve-3d; transform-origin: 50% 50%; transform: rotateX(-23760deg);">
+                <div class="eskimi-flip-card eskimi-flip-front"
+                    style="background-image: url(./img/banner_group.png); backface-visibility: hidden;">
+                </div>
+                <div class="eskimi-flip-card eskimi-flip-back"
+                    style="background-image: url(./img/banner_group2.png); transform: rotateX(180deg); backface-visibility: hidden;">
+                </div>
+            </div>
+        </div>
+        <div id="preloader" class="adsize" style="display: none;">
+            <div class="linePreloader"></div>
+        </div>
+    </div>
+    <script>
+    eskimiCTA = "https://smartbee.az", adsArea = document.getElementById("adsArea"), slideWrapper = document.getElementById("eskimi-flip"), logoFile = "", ctaFile = "", _dsptr = function (e) { var track; (new Image).src = "" + e }; function ctaFunction() { window.open(eskimiCTA) } var isStarted = !0; function startedFunction() { isStarted && (isStarted = !1, _dsptr("started")) } var isFinished = !0; function finishedFunction() { isFinished && (isFinished = !1, _dsptr("finished")) }</script>
+    <script
+        src="./js/main.js"></script>
+</body>
+
+</html>

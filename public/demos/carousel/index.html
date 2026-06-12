@@ -1,0 +1,81 @@
+<html lang="en" style="--ad-width: 300px; --ad-height: 250px;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="ad.size" content="width=300,height=250">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./js/gsap.js"></script>
+    <script type="text/javascript" src="./js/draggable.js"></script>
+    <script type="text/javascript" src="./js/carousel_script.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body class="inner-page">
+    <div id="adsArea">
+        <div class="wrapper" style="opacity: 1;">
+            <div class="bg"></div>
+            <div class="bgw"></div>
+            <div class="slide_cn"
+                style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; transform: translate3d(-5.5018px, 0px, 0px) scale(0.5, 0.5);">
+                <div class="pic1"
+                    style="opacity: 1; translate: none; rotate: none; scale: none; transform: translate(-360px, 0px);">
+                    <div class="91274_2171298095_caaa9a57c658d719d2a614d5c02b25ad"
+                        style="background-image: url(./img/banner_group.png);">
+                    </div>
+                </div>
+                <div class="pic2"
+                    style="z-index: 1; opacity: 1; translate: none; rotate: none; scale: none; transform: scale(1.8, 1.8);">
+                    <div class="91274_2171298095_4d38de86977f7c6f92f97499420d0838"
+                        style="background-image: url(./img/banner_group2.png);">
+                    </div>
+                </div>
+                <div class="pic3"
+                    style="opacity: 1; translate: none; rotate: none; scale: none; transform: translate(360px, 0px);">
+                    <div class="91274_2171298095_f5c4df38617dbdf9119338695cf001e2"
+                        style="background-image: url(./img/banner_group3.png);">
+                    </div>
+                </div>
+                <div class="pic4"
+                    style="opacity: 1; translate: none; rotate: none; scale: none; transform: translate(720px, 0px);">
+                    <div class="91274_2171298095_25438409cca22cd2cacb52b3c1070aab"
+                        style="background-image: url(./img/banner_group.png);">
+                    </div>
+                </div>
+                <div class="pic5"
+                    style="opacity: 1; translate: none; rotate: none; scale: none; transform: translate(1080px, 0px);">
+                    <div class="91274_2171298095_96a75129ffcc01991555521cf7f98dee"
+                        style="background-image: url(./img/banner_group2.png);">
+                    </div>
+                </div>
+                <div class="pic6"
+                    style="opacity: 1; translate: none; rotate: none; scale: none; transform: translate(1440px, 0px);">
+                    <div class="91274_2171298095_162cb2602edc9e5b3284e3119bc800ca"
+                        style="background-image: url(./img/banner_group3.png);">
+                    </div>
+                </div>
+            </div>
+            <div class="dragger"
+                style="translate: none; rotate: none; scale: none; touch-action: pan-y; cursor: grab; transform: translate3d(0px, 0px, 0px); user-select: none;">
+            </div>
+        </div>
+        <script type="text/javascript">
+            const wrapper = document.querySelector(".wrapper"); gsap.set(wrapper, { opacity: 0 });
+            var clickUrl = "https://smartbee.az",
+                eventUrl = "";
+            function startEvent(event) { var track; (new Image).src = eventUrl + event } function clickThrough(node) { window.open(clickUrl), startEvent(`ClickSlide_${node}`) } var engOb = { mouseOver: !1, touch: !1 }; function setEng(event) { if (!engOb.mouseOver && !engOb.touch) switch (event.type) { case "mouseover": engOb.mouseOver = !0, startEvent("Mouse_Over"); break; case "touchstart": engOb.touch = !0, startEvent("Touch") } } wrapper.addEventListener("mouseover", setEng), wrapper.addEventListener("touchstart", setEng);</script>
+        <script
+            type="text/javascript">var o = {}, b = {}; const settings = { w: 300, h: 250, gap: 60, focusMode: !0, scaleMode: .5, scaleMain: 1.8, icon: "light", arrowsEnable: !1, iconEnable: !0, assets: [{ cors: !1, src: ["./img/banner_group.png", "./img/banner_group2.png", "./img/banner_group3.png"] }] };</script>
+        <script type="text/javascript" src="./js/main.js"></script>
+    </div>
+</body>
+
+</html>

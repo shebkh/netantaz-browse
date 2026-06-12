@@ -1,0 +1,176 @@
+body {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #fff
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+#adsArea {
+    overflow: hidden;
+    position: relative;
+    color: #000;
+    background-clip: content-box;
+    background: #fff;
+    border: 1px solid #681d6b;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+}
+
+.opacity0 {
+    opacity: 0
+}
+
+.adsize {
+    width: 300px;
+    height: 250px
+}
+
+.abs {
+    position: absolute
+}
+
+.text-bold {
+    font-weight: 700
+}
+
+.hide {
+    display: none
+}
+
+#preloader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 101;
+    background: #fff
+}
+
+.linePreloader {
+    width: 150px;
+    height: 10px;
+    background: -webkit-gradient(linear, left top, right top, from(#681d6b), to(#e492e4));
+    background: -o-linear-gradient(left, #681d6b, #e492e4);
+    background: linear-gradient(to right, #681d6b, #e492e4);
+    background-color: #681d6b;
+    margin: auto;
+    border-radius: 10px;
+    background-size: 20%;
+    background-repeat: repeat-y;
+    background-position: -20% 0;
+    -webkit-animation: scroll 1.2s ease-in-out infinite;
+    animation: scroll 1.2s ease-in-out infinite;
+    position: relative;
+    top: 48%
+}
+
+@-webkit-keyframes scroll {
+    50% {
+        background-size: 80%
+    }
+
+    100% {
+        background-position: 125% 0
+    }
+}
+
+@keyframes scroll {
+    50% {
+        background-size: 80%
+    }
+
+    100% {
+        background-position: 125% 0
+    }
+}
+
+.logo {
+    max-width: 70px;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    z-index: 25;
+    pointer-events: none;
+    touch-action: none;
+}
+
+.cta {
+    left: 50%;
+    bottom: 5px;
+    margin-left: -60px;
+    -webkit-animation: pulse 1s infinite;
+    animation: pulse 1s infinite;
+    pointer-events: none;
+    touch-action: none;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale(.95);
+        transform: scale(.95)
+    }
+
+    70% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(.95);
+        transform: scale(.95)
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale(.95);
+        transform: scale(.95)
+    }
+
+    70% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(.95);
+        transform: scale(.95)
+    }
+}
+
+.eskimi-flip-holder {
+    position: relative;
+}
+
+.eskimi-flip {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.eskimi-flip-card {
+    position: absolute;
+    overflow: hidden;
+    width: 300px;
+    height: 250px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

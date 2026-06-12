@@ -1,0 +1,85 @@
+:root {
+    --ad-width: 300px;
+    --ad-height: 250px;
+}
+
+body {
+    position: absolute !important;
+    padding: 0 !important;
+    width: var(--ad-width) !important;
+    height: var(--ad-height) !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    z-index: 9999 !important;
+}
+
+.wrapper {
+    position: absolute;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.bg,
+.svgscn,
+.slcn,
+.s1e,
+.s1r,
+.s2e,
+.s2r,
+.s3e,
+.s3r,
+.cp1,
+.cp2 {
+    position: absolute;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+
+
+.svgst1,
+.svgst2 {
+    position: absolute;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    pointer-events: none;
+
+    fill: #fff;
+    stroke: #fff;
+}
+
+
+.st0 {
+    stroke-width: 10px;
+    fill: none;
+    stroke-miterlimit: 10;
+    stroke-linecap: square;
+}
+
+.st2 {
+    opacity: 0;
+}
+
+.st4 {
+    fill: none;
+}
+
+.svgscn,
+.sbgst1 {
+    perspective: 300px;
+    transform-style: preserve-3d;
+    transform-origin: 50% 100%;
+}

@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#adRect {
+    background: #02e0ed;
+    color: #333;
+    width: 300px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    text-overflow: clip;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+#bgBehind {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    transform: scale(1.6);
+    opacity: 0;
+}
+
+#explodeRepeat {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+}
+
+#indRect {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-color: red;
+    opacity: 0;
+}
+
+#svgElem {
+    position: absolute;
+}
+
+#ctx0 {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+}
+
+#gap {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    background-color: #006b75;
+    opacity: 0;
+}
+
+#smoke {
+    position: absolute;
+    width: 400px;
+    height: 267px;
+    left: 0px;
+    bottom: 0px;
+    opacity: 0;
+}
+
+#smoke2 {
+    position: absolute;
+    width: 400px;
+    height: 267px;
+    left: -50px;
+    bottom: 0px;
+    opacity: 0;
+
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+.smoke {
+    background-image: url(smoke.png);
+}

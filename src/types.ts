@@ -1,30 +1,25 @@
-// Shared types for the Creatives Gallery (PROJECT.md §6).
+// Shared types for the Creatives Gallery.
 
 export type Lang = 'az' | 'en';
+
+// How a banner is previewed: a static image, or an HTML5 demo loaded in an iframe.
+export type BannerPreview =
+  | { kind: 'image'; src: string }
+  | { kind: 'demo'; src: string };
 
 export type Banner = {
   id: string;
   title: string;
   category: string;
   format: string;
-  size: string;
+  size: string; // "300x250"
   ratioLabel: string;
-  primaryColor: string;
-  accentColor: string;
-  textColor: string;
-  headline: string; // AZ
-  headlineEn: string;
-  cta: string; // AZ
-  ctaEn: string;
   description: string;
-  // §6 lists "fast" | "slow" | "none"; the prototype data also uses "normal"
-  // (b1/b5/b8). Union widened to keep the prototype's banner data verbatim.
-  animationSpeed: 'fast' | 'slow' | 'normal' | 'none';
-  isSparkle: boolean;
+  preview: BannerPreview;
 };
 
 // One language's copy. Both AZ and EN must provide every key (enforced by
-// `Translations` below). i18n is a hand-kept dictionary — see PROJECT.md §8.
+// `Translations` below). i18n is a hand-kept dictionary.
 export type TranslationStrings = {
   heroSub: string;
   heroTitlePart1: string;

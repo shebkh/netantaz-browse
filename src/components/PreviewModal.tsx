@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { X, Monitor, Smartphone } from 'lucide-react';
 import type { Banner, Lang, TranslationStrings } from '../types';
+import BannerPreview from './BannerPreview';
 
 type PreviewModalProps = {
   banner: Banner;
@@ -13,8 +14,6 @@ type PreviewModalProps = {
 
 export default function PreviewModal({ banner, device, onDeviceChange, onClose, lang, t }: PreviewModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const reduceMotion =
-    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Esc closes; move focus into the modal on open, restore it to the trigger on close.
   useEffect(() => {
@@ -57,7 +56,7 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
             ref={closeButtonRef}
             onClick={onClose}
             aria-label={t.close}
-            className="shrink-0 w-9 h-9 rounded-full bg-[#121115]/5 hover:bg-[#121115]/10 flex items-center justify-center transition-colors text-[#121115]"
+            className="shrink-0 w-9 h-9 rounded-full bg-[#121115]/5 hover:bg-[#121115]/10 flex items-center justify-center transition-colors text-[#121115] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -104,78 +103,14 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
                   <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest text-white/25">
                     {lang === 'az' ? 'Simulyasiya' : 'Simulated Web Feed'}
                   </div>
-                  <div
-                    className="shadow-xl"
-                    style={{
-                      width: `${banner.size.split('x')[0]}px`,
-                      height: `${banner.size.split('x')[1]}px`,
-                      maxWidth: '100%', maxHeight: '340px',
-                      backgroundColor: banner.primaryColor,
-                      color: banner.textColor,
-                      borderRadius: '16px', display: 'flex', flexDirection: 'column',
-                      justifyContent: 'space-between', padding: '16px',
-                      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.4)'
-                    }}
-                  >
-                    <div className="flex items-center justify-between text-[9px] uppercase tracking-wider opacity-85">
-                      <span>{banner.category}</span>
-                      <span className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                        {banner.format}
-                      </span>
-                    </div>
-                    <div className="my-auto py-2">
-                      <h4 className={`text-xs sm:text-sm font-bold tracking-tight leading-snug brand-display ${reduceMotion ? '' : 'animate-ad-pulse'}`}>
-                        {lang === 'az' ? banner.headline : banner.headlineEn}
-                      </h4>
-                    </div>
-                    <div className="flex items-center justify-between pt-1">
-                      <span className="px-3 py-1.5 rounded-full text-[9px] font-bold tracking-wide uppercase inline-block"
-                        style={{ backgroundColor: banner.textColor, color: banner.primaryColor }}>
-                        {lang === 'az' ? banner.cta : banner.ctaEn}
-                      </span>
-                      <span className="text-[9px] opacity-65 font-mono">{banner.size}</span>
-                    </div>
-                  </div>
+                  <BannerPreview banner={banner} maxHeight={340} />
                 </div>
                 <div className="w-20 h-1 bg-white/20 rounded-full mx-auto mb-1"></div>
               </div>
             ) : (
               /* Desktop frame */
               <div className="bg-white/60 p-8 sm:p-12 rounded-[2rem] border border-[#121115]/5 shadow-sm max-w-full flex items-center justify-center">
-                <div
-                  className="shadow-2xl"
-                  style={{
-                    width: `${banner.size.split('x')[0]}px`,
-                    height: `${banner.size.split('x')[1]}px`,
-                    maxWidth: '100%',
-                    backgroundColor: banner.primaryColor,
-                    color: banner.textColor,
-                    borderRadius: '20px', display: 'flex', flexDirection: 'column',
-                    justifyContent: 'space-between', padding: '24px',
-                    boxShadow: '0 25px 50px -12px rgba(18, 17, 21, 0.25)'
-                  }}
-                >
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-wider opacity-85">
-                    <span>{banner.category}</span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping"></span>
-                      {banner.format}
-                    </span>
-                  </div>
-                  <div className="my-auto py-4">
-                    <h4 className={`text-base sm:text-lg font-bold tracking-tight leading-snug brand-display ${reduceMotion ? '' : 'animate-ad-pulse'}`}>
-                      {lang === 'az' ? banner.headline : banner.headlineEn}
-                    </h4>
-                  </div>
-                  <div className="flex items-center justify-between pt-2">
-                    <span className="px-4 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase inline-block"
-                      style={{ backgroundColor: banner.textColor, color: banner.primaryColor }}>
-                      {lang === 'az' ? banner.cta : banner.ctaEn}
-                    </span>
-                    <span className="text-[10px] opacity-65 font-mono">{banner.size}</span>
-                  </div>
-                </div>
+                <BannerPreview banner={banner} maxHeight={460} />
               </div>
             )}
           </div>

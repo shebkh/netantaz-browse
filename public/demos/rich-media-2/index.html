@@ -1,0 +1,134 @@
+<html lang="en"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ad.size" content="width=300,height=250">
+    <script src="/cdn-cgi/apps/head/SBE_i1m1rc4f3Bp7RNuf9nhYWN4.js"></script><link rel="stylesheet" type="text/css" href="style.css">
+	<title>Cube</title>
+</head>
+
+<body>
+
+    <div class="banner">
+        <div class="wrap-cube">
+            <div class="cube" style="touch-action: pan-y; cursor: grab; user-select: none; transform: translate3d(0px, 0px, -140px) rotateY(-289.04deg);">
+                <div class="cube__side cube__side-1">
+                    <img class="cube__img" src="image1.jpg" alt="">
+                </div>
+                <div class="cube__side cube__side-2">
+                    <img class="cube__img" src="image2.jpg" alt="">
+                </div>
+                <div class="cube__side cube__side-3">
+                    <img class="cube__img" src="image3.jpg" alt="">
+                </div>
+                <div class="cube__side cube__side-4">
+                    <img class="cube__img" src="image4.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="gsap.min.js"></script>
+    <script src="CSSRulePlugin.min.js"></script>
+    <script src="Draggable.min.js"></script>
+
+    <script>
+        function clickFunction() {
+            window.open("https://netant.az/");
+        }
+
+        function _dsptr(e) {
+            var track = new Image();
+            track.src = "" + e;
+        };
+
+        let ft = true;
+
+        function dragft() {
+            if (ft) {
+                ft = false;
+                _dsptr("#");
+            }
+        }
+
+        let ft2 = true;
+
+        function dragft2() {
+            if (ft2) {
+                ft2 = false;
+                _dsptr("#");
+            }
+        }
+        window.addEventListener('load', () => {
+
+            document.querySelectorAll('img').forEach(current => {
+                current.addEventListener('dragstart', (e) => {
+                    e.preventDefault();
+                });
+            });
+
+            document.querySelector('.banner').addEventListener('click', clickFunction);
+
+
+            function handRotate() {
+
+                let wrapSetTimeout;
+                let lastX = 0;
+                let coorX = 0;
+
+                function initAutoMove() {
+                    let coor = (lastX * 100 / 360) / 100;
+                    if (coor < 0) {
+                        cube.progress(-coor);
+                    } else {
+                        cube.progress(1 - coor);
+                    }
+                    cube.play();
+                }
+
+                Draggable.create('.cube', {
+                    type: 'x',
+                    inertia: true,
+                    onPress: function () {
+                        cube.pause();
+                    },
+                    onDrag: function () {
+                        dragft();
+
+                        gsap.to('.cube', {
+                            rotationY: lastX + this.x,
+                        });
+                        coorX = lastX + this.x;
+                        return false;
+                    },
+                    onDragEnd: function () {
+                        dragft2();
+
+                        lastX = coorX;
+
+                        if (wrapSetTimeout) clearTimeout(wrapSetTimeout)
+                        wrapSetTimeout = setTimeout(initAutoMove, 1000);
+                    },
+                });
+
+                let cube = gsap.to('.cube', {
+                    rotationY: -360,
+                    repeat: -1,
+                    duration: 18,
+                    ease: Power0.easeNone,
+                    onUpdate: function () {
+                        let y = this.vars.rotationY;
+                        lastX = Math.round(this.progress() * y);
+                    }
+                });
+
+            }
+
+            handRotate();
+
+        });
+    </script>
+
+
+</body></html>

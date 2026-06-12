@@ -1,0 +1,80 @@
+<html lang="en" style="--ad-width: 300px; --ad-height: 250px;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="ad.size" content="width=300,height=250">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./js/gsap.min.js"></script>
+    <script type="text/javascript" src="./js/Draggable.min.js"></script>
+    <script type="text/javascript" src="./js/parallax.min.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adsArea">
+        <div class="wrapper" style="opacity: 1;">
+            <div class="mainCont" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+                <div class="cubeBg"
+                    style="translate: none; rotate: none; scale: none; transform: translate3d(0px, 0px, -149.8px) rotateY(-7740deg);">
+                    <div class="face 91274_2171298095_a5f051aaf3b496e036a4af29298057e8"
+                        style="transform: translateX(0px) translateY(0px) translateZ(149.8px) rotateY(0deg); background-image: url(./img/background.png);">
+                    </div>
+                    <div class="face 91274_2171298095_1e80d3588c27768315183b40a1640053"
+                        style="transform: translateX(149.8px) translateY(0px) translateZ(9.1726e-15px) rotateY(90deg); background-image: url(./img/background2.png);">
+                    </div>
+                    <div class="face 91274_2171298095_a5f051aaf3b496e036a4af29298057e8"
+                        style="transform: translateX(1.83452e-14px) translateY(0px) translateZ(-149.8px) rotateY(180deg); background-image: url(./img/background3.png);">
+                    </div>
+                    <div class="face 91274_2171298095_1e80d3588c27768315183b40a1640053"
+                        style="transform: translateX(-149.8px) translateY(0px) translateZ(-2.75178e-14px) rotateY(270deg); background-image: url(./img/background.png);">
+                    </div>
+                </div>
+                <div class="cubeFg"
+                    style="translate: none; rotate: none; scale: none; transform: translate3d(0px, 0px, -119.84px) rotateY(-7740deg);">
+                    <div class="face 91274_2171298095_fd87abdb4cc47e89a43bee2c605f5643"
+                        style="transform: translate3d(0px, 0px, 149.8px) scale(0.9, 0.9); translate: none; rotate: none; scale: none; background-image: url(./img/banner1.png);">
+                    </div>
+                    <div class="face 91274_2171298095_19494c1a05aa85bf23303623877dab21"
+                        style="transform: translate(149.8px, 0px) rotateY(90deg) scale(0.9, 0.9); translate: none; rotate: none; scale: none; background-image: url(./img/banner2.png);">
+                    </div>
+                    <div class="face 91274_2171298095_fd87abdb4cc47e89a43bee2c605f5643"
+                        style="transform: translate3d(0px, 0px, -149.8px) rotateY(180deg) scale(0.9, 0.9); translate: none; rotate: none; scale: none; background-image: url(./img/banner3.png);">
+                    </div>
+                    <div class="face 91274_2171298095_19494c1a05aa85bf23303623877dab21"
+                        style="transform: translate(-149.8px, 0px) rotateY(-90deg) scale(0.9, 0.9); translate: none; rotate: none; scale: none; background-image: url(./img/banner1.png);">
+                    </div>
+                </div>
+            </div>
+            <div class="dragEl"
+                style="translate: none; rotate: none; scale: none; touch-action: pan-y; cursor: grab; transform: translate3d(0px, 0px, 0px); user-select: none; z-index: 1001;">
+            </div>
+            <div class="ico_cn"
+                style="translate: none; rotate: none; scale: none; transform: translate(-38.506px, 100px); opacity: 0;">
+                <div class="ico_dark" style="background-image: url(./img/ico_dark.png);">
+                </div>
+                <div class="ico_light"
+                    style="background-image: url(./img/ico_light.png); opacity: 0; visibility: hidden;">
+                </div>
+            </div>
+        </div>
+        <script
+            type="text/javascript">
+            const wrapper = document.querySelector(".wrapper");
+            var clickUrl = "https://smartbee.az/",
+            eventUrl = "https://smartbee.az/";
+            function startEvent(event) { var track; (new Image).src = eventUrl + event } function clickThrough(event) { window.open(clickUrl) } var engOb = { mouseOver: !1, touch: !1 };
+            function setEng(event) { if (!engOb.mouseOver && !engOb.touch) switch (event.type) { case "mouseover": engOb.mouseOver = !0, startEvent("Mouse_Over"); break;
+            case "touchstart": engOb.touch = !0, startEvent("Touch") } } wrapper.addEventListener("mouseover", setEng), wrapper.addEventListener("touchstart", setEng); var o = {}, b = {}; const settings = { w: 300, h: 250, speed: 26, engage: !0, icon: "dark", animation: "power2.out", animationInterval: 2, animationDuration: 1.5, anim_mode: "horizontal", assets: [{ cors: !1, src: ["./img/background.png", "./img/background2.png", "./img/background3.png", "./img/background.png"] }, { cors: !1, src: ["./img/banner1.png", "./img/banner2.png", "./img/banner3.png", "./img/banner1.png"] }, { cors: !1, src: ["./img/ico_dark.png", "./img/ico_light.png"] }], cube: { amount: 4, fbgOffset: .8, data: [] } };</script>
+        <script type="text/javascript" src="./js/main.js"></script>
+    </div>
+</body>
+
+</html>

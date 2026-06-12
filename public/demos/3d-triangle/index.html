@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" style="--ad-width: 300px; --ad-height: 250px;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ad.size" content="width=300,height=250">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="outerCont">
+        <div class="mainCont">
+            <div class="cubeBg">
+                <div class="face face1">
+                    <img src="./img/background.png" alt="Image 1">
+                </div>
+                <div class="face face2">
+                    <img src="./img/background2.png" alt="Image 2">
+                </div>
+                <div class="face face3">
+                    <img src="./img/background3.png" alt="Image 3">
+                </div>
+            </div>
+            <div class="cubeFg">
+                <div class="face face1">
+                    <img src="./img/banner1.png" alt="Banner 1">
+                </div>
+                <div class="face face2">
+                    <img src="./img/banner2.png" alt="Banner 2">
+                </div>
+                <div class="face face3">
+                    <img src="./img/banner3.png" alt="Banner 3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const element = document.querySelector(".mainCont");
+            if (element) {
+                element.addEventListener("click", function () {
+                    window.open("https://smartbee.az", "_blank"); 
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

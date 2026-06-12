@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Swiper demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">				<meta name="ad.size" content="width=320,height=100">
+        <!-- Link Swiper's CSS -->
+        <link rel="stylesheet" href="swiper.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Cube</title>
+    </head>
+
+    <body>
+        <div class="banner">
+            <!-- Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="{ad_url}"
+                            target="_blank" class="swiper_link">
+                            <img class="cube__img" src="image2.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="{ad_url}"
+                            target="_blank" class="swiper_link">
+                            <img class="cube__img" src="image1.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="{ad_url}"
+                            target="_blank" class="swiper_link">
+                            <img class="cube__img" src="image4.png" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="{ad_url}"
+                            target="_blank" class="swiper_link">
+                            <img class="cube__img" src="image3.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Swiper JS -->
+        <script src="swiper.min.js"></script>
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.swiper-container', {
+                effect: 'cube',
+                grabCursor: true,
+                loop: true,
+                freeMode: true,
+                direction: 'vertical',
+                cubeEffect: {
+                    shadow: false,
+                    slideShadows: false,
+                    shadowOffset: 20,
+                    shadowScale: 0.94,
+                },
+                speed: 4000,
+                autoplay: {
+                    slideSpeed: 4000,
+                    delay: 0,
+                    disableOnInteraction: false,
+                },
+            });
+        </script>
+    </body>
+
+</html>

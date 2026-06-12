@@ -1,0 +1,138 @@
+body {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #fff
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none
+}
+
+#adsArea {
+    overflow: hidden;
+    position: relative;
+    color: #000;
+    background-clip: content-box;
+    background: #eee;
+    border: 1px solid #681d6b;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+}
+
+.opacity0 {
+    opacity: 0
+}
+
+.adsize {
+    width: 300px;
+    height: 250px
+}
+
+.abs {
+    position: absolute
+}
+
+.text-bold {
+    font-weight: 700
+}
+
+.hide {
+    display: none
+}
+
+#preloader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 101;
+    background: #fff
+}
+
+.linePreloader {
+    width: 150px;
+    height: 10px;
+    background: linear-gradient(to right, #681d6b, #e492e4);
+    background-color: #681d6b;
+    margin: auto;
+    border-radius: 10px;
+    background-size: 20%;
+    background-repeat: repeat-y;
+    background-position: -20% 0;
+    animation: scroll 1.2s ease-in-out infinite;
+    position: relative;
+    top: 48%
+}
+
+@keyframes scroll {
+    50% {
+        background-size: 80%
+    }
+
+    100% {
+        background-position: 125% 0
+    }
+}
+
+.logo {
+    max-width: 70px;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    z-index: 25
+}
+
+.cta {
+    left: 50%;
+    bottom: 5px;
+    margin-left: -60px;
+    animation: pulse 1s infinite
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(.95)
+    }
+
+    70% {
+        transform: scale(1)
+    }
+
+    100% {
+        transform: scale(.95)
+    }
+}
+
+.adviad-flip-holder {
+    position: relative;
+}
+
+.adviad-flip {
+    transform-style: preserve-3d;
+}
+
+.adviad-flip-card {
+    position: absolute;
+    overflow: hidden;
+    width: 300px;
+    height: 250px;
+}
+
+/* .adviad-flip-front {
+    background: url(../images/pic1.jpg);
+}
+
+.adviad-flip-back {
+    background: url(../images/pic2.jpg);
+} */

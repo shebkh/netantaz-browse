@@ -1,0 +1,149 @@
+<html lang="en"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ad.size" content="width=300,height=600">
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<title>Cube</title>
+</head>
+
+<body>
+
+    <div class="banner">
+        <div class="wrap-cube">
+            <div class="cube" style="touch-action: pan-y; cursor: grab; user-select: none; transform: translate3d(0px, 0px, -140px) rotateY(-289.04deg);">
+                <div class="cube__side cube__side-1">
+                    <img onclick="site1()" class="cube__img" src="image1.png" alt="">
+                </div>
+                <div class="cube__side cube__side-2">
+                    <img onclick="site2()" class="cube__img" src="image2.png" alt="">
+                </div>
+                <div class="cube__side cube__side-3">
+                    <img onclick="site3()" class="cube__img" src="image3.png" alt="">
+                </div>
+                <div class="cube__side cube__side-4">
+                    <img onclick="site4()" class="cube__img" src="image4.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="gsap.min.js"></script>
+    <script src="CSSRulePlugin.min.js"></script>
+    <script src="Draggable.min.js"></script>
+
+    <script>
+
+        function site1()
+        {
+            window.open("https://www.samsung.com/az/watches/galaxy-watch/galaxy-watch4-classic-black-bt-sm-r890nzkacis/?cid=az_ow_display_smartbee_galaxy-watch4-series_ongoing_none_banner_none_none");
+        }
+        
+        function site2()
+        {
+            window.open("https://www.samsung.com/az/watches/galaxy-watch/galaxy-watch4-classic-black-bt-sm-r890nzkacis/?cid=az_ow_display_smartbee_galaxy-watch4-series_ongoing_none_banner_none_none");
+        }
+        
+        function site3()
+        {
+            window.open("https://www.samsung.com/az/watches/galaxy-watch/galaxy-watch4-classic-black-bt-sm-r890nzkacis/?cid=az_ow_display_smartbee_galaxy-watch4-series_ongoing_none_banner_none_none");
+        }
+
+        function site4()
+        {
+            window.open("https://www.samsung.com/az/watches/galaxy-watch/galaxy-watch4-classic-black-bt-sm-r890nzkacis/?cid=az_ow_display_smartbee_galaxy-watch4-series_ongoing_none_banner_none_none");
+        }
+
+
+        function _dsptr(e) {
+            var track = new Image();
+            track.src = "" + e;
+        };
+
+        let ft = true;
+
+        function dragft() {
+            if (ft) {
+                ft = false;
+                _dsptr("#");
+            }
+        }
+
+        let ft2 = true;
+
+        function dragft2() {
+            if (ft2) {
+                ft2 = false;
+                _dsptr("#");
+            }
+        }
+        window.addEventListener('load', () => {
+
+            document.querySelectorAll('img').forEach(current => {
+                current.addEventListener('dragstart', (e) => {
+                    e.preventDefault();
+                });
+            });
+
+            function handRotate() {
+
+                let wrapSetTimeout;
+                let lastX = 0;
+                let coorX = 0;
+
+                function initAutoMove() {
+                    let coor = (lastX * 100 / 360) / 100;
+                    if (coor < 0) {
+                        cube.progress(-coor);
+                    } else {
+                        cube.progress(1 - coor);
+                    }
+                    cube.play();
+                }
+
+                Draggable.create('.cube', {
+                    type: 'x',
+                    inertia: true,
+                    onPress: function () {
+                        cube.pause();
+                    },
+                    onDrag: function () {
+                        dragft();
+
+                        gsap.to('.cube', {
+                            rotationY: lastX + this.x,
+                        });
+                        coorX = lastX + this.x;
+                        return false;
+                    },
+                    onDragEnd: function () {
+                        dragft2();
+
+                        lastX = coorX;
+
+                        if (wrapSetTimeout) clearTimeout(wrapSetTimeout)
+                        wrapSetTimeout = setTimeout(initAutoMove, 1000);
+                    },
+                });
+
+                let cube = gsap.to('.cube', {
+                    rotationY: -360,
+                    repeat: -1,
+                    duration: 18,
+                    ease: Power0.easeNone,
+                    onUpdate: function () {
+                        let y = this.vars.rotationY;
+                        lastX = Math.round(this.progress() * y);
+                    }
+                });
+
+            }
+
+            handRotate();
+
+        });
+    </script>
+
+
+</body></html>

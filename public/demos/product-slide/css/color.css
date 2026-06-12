@@ -1,0 +1,126 @@
+body{
+    color:#000;
+    border:1px solid #eee
+}
+#logo-container .logo-container-logos-wraper{
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    border:none;
+    background:rgb(255,255,255)
+}
+#banner-container{
+    background:#ededed
+}
+#banner-container{
+    -webkit-box-shadow:inset none;
+    -moz-box-shadow:inset none;
+    box-shadow:inset none
+}
+.ribbon.radius>div,.offer-ribbon,.offer-enlarger-ribbon{
+    box-shadow:0 0 2px 2px rgba(0,0,0,.3);
+    background:#000;
+}
+.ribbon .content,.offer-ribbon span,.offer-enlarger-ribbon span{
+    color:#fff;
+    text-shadow:none
+}
+.shadow-container{
+    -webkit-box-shadow:inset none;
+    -moz-box-shadow:inset none;
+    box-shadow:inset none;
+    position:absolute;
+    margin:0;
+    padding:0;
+    z-index:5;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0
+}
+.offer-container{
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    border:1px solid #ededed;
+    background:rgb(255,255,255)
+}
+a.offer-container:hover{
+    border:1px solid #000000
+}
+.offer-loader{
+    background:#000000;
+}
+.offer-hover-container{
+    background:rgba(255,255,255,.9)
+}
+.offer-price-container span,.offer-enlarger-price span{
+    color:#0c0f0d;
+    text-shadow:none
+}
+.offer-enlarger-price span,.offer-enlarger-price p{
+    color:#0c0f0d
+}
+.offer-price-container>p{
+    background:rgb(255,255,255)
+}
+.offer-oldprice-container>p{
+    background:rgb(255,255,255)
+}
+.offer-oldprice-container span,.offer-enlarger-oldprice span,.offer-enlarger-oldprice p{
+    color:#f00;
+    text-shadow:none
+}
+.offer-enlarger-oldprice span,.offer-enlarger-oldprice p{
+    color:#f00
+}
+.offer-oldprice-container>p{
+    background:rgb(255,255,255)
+}
+.offer-name-container span{
+    color:#000
+}
+.offer-enlarger-infobar{
+    background:rgba(255,255,255,.9)
+}
+.offer-enlarger-name span{
+    color:#000
+}
+.offer-ribbon,.offer-enlarger-ribbon{
+    box-shadow:0 0 2px 2px rgba(0,0,0,.3);
+    background:#000;
+}
+.offer-ribbon span,.offer-enlarger-ribbon span{
+    color:#fff;
+    text-shadow:none
+}
+.offer-button-wrapper,.offer-enlarger-button{
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    border:0 solid #000;
+    background:#000000
+}
+.offer-button-wrapper span,.offer-enlarger-button span{
+    color:#fff;
+    text-shadow:none
+}
+.offer-button-wrapper:hover,.offer-enlarger-button:hover{
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    border:0 solid #ef4136;
+    background:#b81e1e
+}
+.offer-button-wrapper:hover span,.offer-enlarger-button:hover span{
+    color:#fff
+}
+#offer-enlarger{
+    border:1px solid #ededed
+}
+.galler-first-offer-cotainer{
+    border:1px solid #ededed
+}
+.offer-small-name-container{
+    color:#000
+}

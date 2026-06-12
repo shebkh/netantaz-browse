@@ -1,0 +1,11 @@
+.enlarger-region-position,.offer-region-position{
+    background-color:#362823;
+    color:#fff!important;
+    font-weight:lighter
+}
+.offer-enlarger-region{
+    color:#fff!important
+}
+.tc .offer-region-position,.wb .offer-region-position,.sb .offer-region-position,.bb .offer-region-position{
+    display:none!important
+}

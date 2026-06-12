@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #eee;
+    perspective: 1000px;
+    margin: 0;
+}
+
+.wrapper {
+    position: relative;
+    width: 300px;
+    height: 250px;
+    transform-style: preserve-3d;
+}
+
+.bg_cn_1, .fg_cn_1 {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+}
+
+.bg_cn_2, .fg_cn_2 {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+}
+
+.pic1, .pic2 {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    top: 0;
+    left: 0;
+    background-size: contain;
+    object-fit: contain;
+    background-position: center;
+    border-radius: 20px;
+}
+
+.pic1 {
+    transform: scale(0.95);
+}
+
+.pic2 {
+    transform: translateZ(30px) scale(0.9);
+}

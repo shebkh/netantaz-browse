@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="gsap.min.js"></script>
+	<title>Flip</title>
+</head>
+
+<body>
+
+    <div id="adsArea" class="adsize">
+
+        <div class="adviad-flip-holder adsize">
+            <div class="adviad-flip adsize">
+                <div class="adviad-flip-card adviad-flip-front">
+                    <img src="image1.jpg" alt="">
+                </div>
+                <div class="adviad-flip-card adviad-flip-back">
+                    <img src="image2.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="preloader" class="adsize">
+            <div class="linePreloader"></div>
+        </div>
+
+    </div>
+
+    <script>
+        var assets_url = "";
+        var clickUrl = "https://netant.az";
+
+        function ctaFunction(){
+            window.open(clickUrl);
+        }
+
+        var isStarted = true;
+        function startedFunction() {
+            if (isStarted) {
+                isStarted = false;
+                _dsptr("started");
+            }
+        }
+
+        var isFinished = true;
+        function finishedFunction() {
+            if (isFinished) {
+                isFinished = false;
+                _dsptr("finished");
+            }
+        }
+    </script>
+    <script src="code.js"></script>
+</body>
+
+</html>

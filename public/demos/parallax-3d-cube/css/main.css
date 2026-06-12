@@ -1,0 +1,87 @@
+body {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: var(--ad-width) !important;
+    height: var(--ad-height) !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    user-select: none;
+    opacity: 0;
+
+    /* background-color: black; */
+}
+
+.cubeBg,
+.cubeFg {
+    position: absolute;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    top: 0;
+    left: 0;
+
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    /* will-change: transform; */
+}
+
+
+
+.ico_cn,
+.ico_dark,
+.ico_light {
+    position: absolute;
+    pointer-events: none;
+    right: 10px;
+    bottom: 10px;
+    margin-top: -16px;
+    background-size: cover;
+    width: 55px;
+    height: 55px;
+}
+
+.mainCont {
+    width: var(--ad-width);
+    height: var(--ad-height);
+    position: absolute;
+    -webkit-perspective: 500px;
+    -ms-perspective: 500px;
+    perspective: 500px;
+}
+
+.face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ad-width);
+    height: var(--ad-height);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    backface-visibility: hidden;
+}
+
+.dragEl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ad-width);
+    height: var(--ad-height);
+
+}

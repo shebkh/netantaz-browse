@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#adArea {
+    background: #fafafa;
+    color: #333;
+    overflow: hidden;
+    text-overflow: clip;
+    cursor: pointer;
+}
+
+#firstSlide {
+    text-align: center
+}
+
+#cdLine {
+    bottom: 0;
+    width: 70%;
+    margin-left: -35%;
+    position: absolute;
+    display: inline-block;
+}
+
+#cd {
+    width: 320px;
+    height: 60px;
+    position: relative;
+    font-size: 24px;
+    color: black;
+    font-family: muddy, Arial;
+    text-align: center
+}
+
+#cdCont {
+    position: absolute;
+    top: 180px;
+    left: -15px;
+    z-index: 2;
+}
+
+.cdEl {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.timeEl {
+    font-family: Arial;
+    float: left;
+    width: 18%;
+    opacity: 0.65;
+    text-align: center;
+    color: black;
+}
+
+#timeCenter {
+    width: 100%;
+    display: inline-block;
+}
+
+#firstSlide{
+    z-index: 1;
+}
+
+#secondSlide {
+    position: absolute;
+    left: 300px;
+}
+
+#timeExt {
+    top: 235px;
+    width: 300px;
+    text-align: center;
+    height: 10px;
+    left: 38px;
+    position: relative;
+    font-size: 9px;
+    color: white;
+    letter-spacing: 2px;
+    z-index: 2;
+}
+
+.rct {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+
+}

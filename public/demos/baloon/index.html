@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+        href="./assets/css/main.css">
+    <script type="text/javascript"
+        src="./assets/js/tweenMax.js"></script>
+    <script type="text/javascript"
+        src="./assets/js/Draggable.js"></script>
+</head>
+
+<body>
+
+    <div id="adArea" class="rct opacity0" style="opacity: 1;">
+        <div id="bg" class=""
+            style="background-image: url(./assets/img/bg.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+        <div id="clouds" style="transform: translate3d(-290.345px, 0px, 0px);">
+            <div id="c1" class="clouds"
+                style="background-image: url(./assets/img/clouds.png); position: absolute; width: 300px; height: 250px;">
+            </div>
+            <div id="c2" class="clouds"
+                style="background-image: url(./assets/img/clouds.png); position: absolute; width: 300px; height: 250px;">
+            </div>
+        </div>
+
+        <img id="baloon" src="./assets/img/baloon.png"
+            class="opacity0"
+            style="background-image: url(./assets/img/baloon.png); position: absolute; width: 49px; height: 128px;">
+        <canvas id="canvas" width="300px" height="250px"></canvas>
+
+        <div id="t11" class="noEvents opacity0"
+            style="background-image: url(./assets/img/t11.png); position: absolute; width: 300px; height: 250px; transform-origin: 50% 50% 0px; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+        </div>
+        <div id="t12" class="noEvents opacity0"
+            style="background-image: url(./assets/img/t12.png); position: absolute; width: 300px; height: 250px; transform-origin: 50% 50% 0px; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+        </div>
+
+        <div id="product" class="noEvents opacity0"
+            style="background-image: url(./assets/img/product.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+
+        <div id="t21" class="noEvents opacity0"
+            style="background-image: url(./assets/img/t21.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+        <div id="t22" class="noEvents opacity0"
+            style="background-image: url(./assets/img/t22.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+        <div id="t23" class="noEvents opacity0"
+            style="background-image: url(./assets/img/t23.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+
+        <div id="logo" class="noEvents"
+            style="background-image: url(./assets/img/logo.png); position: absolute; width: 300px; height: 250px;">
+        </div>
+    </div>
+
+    <script>
+
+        var _dsptr = function (e) { var track = new Image(); track.src = "{EVENT_URL}" + e; }
+
+        function ctaFunction() {
+            window.open("https://smartbee.az");
+        }
+
+        function startEvent(event_name) {
+            _dsptr(event_name);
+        }
+
+        document.addEventListener("touchstart", function (e) {
+            if (e.target.localName != 'select') {
+                e.preventDefault();
+            }
+        }, true);
+
+        var assets_url = "./assets/img/";
+
+        var assets = {
+            init: [
+                {
+                    format: "png",
+                    type: "id",
+                    scale: 1,
+                    names: "bg baloon logo t11 t12"
+                },
+                {
+                    format: "png",
+                    type: "src",
+                    scale: 1,
+                    names: "baloon"
+                },
+                {
+                    format: "png",
+                    type: "class",
+                    scale: 1,
+                    names: "clouds"
+                },
+            ],
+            end: [
+                {
+                    format: "png",
+                    type: "id",
+                    scale: 1,
+                    names: "product t21 t22 t23"
+                },
+            ]
+        }
+
+    </script>
+
+    <script src="./assets/js/main.js"></script>
+
+
+
+</body>
+
+</html>

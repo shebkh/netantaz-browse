@@ -1,0 +1,217 @@
+@font-face {
+    font-family: 'sfpro';
+    src: url('../font/subset-SFProDisplay-Semibold.woff2') format('woff2'),
+        url('../font/subset-SFProDisplay-Semibold.woff') format('woff'),
+        url('../font/subset-SFProDisplay-Semibold.eot') format('embedded-opentype'),
+        url('../font/subset-SFProDisplay-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: 'sfpro', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#weather-banner {
+    width: 300px;
+    height: 600px;
+    font-size: 24px;
+    position: relative;
+    padding: 20px 16px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.banner_bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 332px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner_bottom img {
+    width: 100%;
+    height: 100%;
+}
+
+.background_img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    mix-blend-mode: overlay;
+}
+
+.banner_text {
+    color: #061C3F;
+    text-shadow: 1px 1px 0.9px rgba(142, 194, 242, 0.30);
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 36px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+
+}
+
+.icon {
+    max-height: 55px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.icon img {
+    height: 100%;
+}
+
+.suggestions_btn {
+    border-radius: 6px;
+    background: #3F2C25;
+    box-shadow: -2px 2px 0px 0px #FFEF17;
+    display: inline-flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: absolute;
+    bottom: 53px;
+    outline: none;
+    border: none;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 165px;
+}
+
+.suggestions_btn img {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes cloud_first_move {
+    0% {
+        transform: translateX(-20vw);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+@keyframes cloud_second_move {
+    0% {
+        transform: translateX(-40vw);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.cloud_first {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: -130px;
+    animation: cloud_first_move 12s linear infinite;
+    mix-blend-mode: screen;
+}
+
+.cloud_second {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: -20px;
+    animation: cloud_second_move 12s linear infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(var(--sway)) translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+.snowflake {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 999;
+    mix-blend-mode: screen;
+}
+
+@keyframes rain-fall {
+    0% {
+        transform: translateX(-500px) translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(var(--sway)) translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.rain-drop {
+    position: absolute;
+    border-radius: 50%;
+    animation: rain-fall 0.1s linear infinite;
+    z-index: 999;
+    mix-blend-mode: overlay;
+    opacity: 0.2;
+}
+
+.sun_rotater {
+    position: absolute;
+    transform: translateX(-9%) translateY(-80%);
+    mix-blend-mode: overlay;
+    animation: sun-rotate 10s linear infinite;
+}
+
+@keyframes sun-rotate {
+    0% {
+        transform: translateX(-9%) translateY(-80%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(-9%) translateY(-80%) rotate(360deg);
+    }
+}

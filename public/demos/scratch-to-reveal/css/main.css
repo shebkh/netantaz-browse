@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.rct {
+    position: absolute;
+}
+
+.vs {
+    position: absolute;
+}
+
+#pic2 {
+    filter: blur(3px);
+}
+
+#shade {
+    background-color: black;
+}
+
+
+
+#adArea {
+    background: #ffffff;
+    cursor: pointer;
+}
+
+
+
+
+.center {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.wrapper {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+
+.abs {
+    position: absolute;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.opacity1 {
+    opacity: 1;
+}
+
+.zi1 {
+    z-index: 800;
+}
+
+.zi2 {
+    z-index: 900;
+}
+
+.zi5 {
+    z-index: 5000;
+}
+
+.zi6 {
+    z-index: 6000;
+}
+
+.zi7 {
+    z-index: 7000 !important;
+}
+
+.zi8 {
+    z-index: 8000 !important;
+}
+
+.zi9 {
+    z-index: 9000 !important;
+}
+
+.zi10 {
+    z-index: 10000 !important;
+}
+
+.zIndex99998 {
+    z-index: 99998;
+}
+
+.zIndex99999 {
+    z-index: 99999;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.noEvents {
+    pointer-events: none;
+}
+
+.noVis {
+    visibility: none;
+}
+
+.noDisplay {
+    display: none;
+}
+
+#dragEl {
+    /*background-color: rgba(0,0,0,0.2);*/
+    background-image: url(images/empty.png);
+    cursor: pointer !important;
+}

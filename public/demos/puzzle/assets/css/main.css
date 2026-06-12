@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    /*a name to be used later*/
+    src: url('https://dsp-media.eskimi.com/upload/rm/upload/1550496613/300x250/Helvetica Bold.ttf');
+    /*URL to font*/
+}
+
+#adArea {
+    background: #ffffff;
+    overflow: hidden;
+    text-overflow: clip;
+    cursor: pointer;
+}
+
+#title {
+    font-family: Helvetica, Arial;
+    position: absolute;
+    color: #ee288e;
+    font-size: 30pt;
+    top: 55px;
+    width: 100%;
+    line-height: 60px;
+    height: 60px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#message {
+    font-family: Helvetica, Arial;
+    position: absolute;
+    color: #4c4c4c;
+    font-size: 10pt;
+    top: 110px;
+    width: 100%;
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+.mozaicPlace {
+    position: absolute;
+    left: 61px;
+    top: 38px;
+    width: 176px;
+    height: 176px;
+
+    /*background-color: #333;*/
+}
+
+
+
+.rct {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.opacity1 {
+    opacity: 1;
+}
+
+.zIndex99995 {
+    z-index: 99995;
+}
+
+.zIndex99996 {
+    z-index: 99996;
+}
+
+.zIndex99997 {
+    z-index: 99997;
+}
+
+.zIndex99998 {
+    z-index: 99998;
+}
+
+.zIndex99999 {
+    z-index: 99999;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.noEvents {
+    pointer-events: none;
+}
+
+.noVis {
+    visibility: none;
+}
+
+.noDisplay {
+    display: none;
+}
+
+#t1,
+#t2,
+#t3 {
+    display: none;
+}

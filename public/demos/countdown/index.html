@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      @font-face {
+        font-family: muddy;
+        src: url("./font/CanalBoldItalique.otf");
+      }
+      #bg {
+        background-image: url("./img/banner_group.png");
+      }
+
+      #secondimg {
+        background-image: url("./img/banner_group2.png");
+        background-repeat: no-repeat;
+        background-color: cover;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <script src="./js/tweenmax.js"></script>
+    <script type="text/javascript">
+      var clickTag = "https://smartbee.az/",
+        countDownDate1 = new Date("03/01/2024 12:00 AM").getTime();
+    </script>
+    <style type="text/css">
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="adsArea">
+      <div
+        id="adArea"
+        class="rct"
+        onclick="ctaFunction()"
+        style="cursor: pointer"
+      >
+        <div
+          id="firstSlide"
+          class="rct"
+          style="transform: matrix(1, 0, 0, 1, 0, 0)"
+        >
+          <div id="bg" class="rct"></div>
+        </div>
+        <div
+          id="secondSlide"
+          class="rct"
+          style="transform: matrix(1, 0, 0, 1, 0, 0)"
+        >
+          <div id="secondimg" class="rct"></div>
+        </div>
+        <div id="cdCont">
+          <div id="cd">
+            <div id="cdLine">
+              <div
+                id="cdDay"
+                class="cdEl"
+                style="transform: matrix(1, 0, 0, 1, 0, 0)"
+              >
+                0
+              </div>
+              <div
+                id="cdHour"
+                class="cdEl"
+                style="transform: matrix(1, 0, 0, 1, 0, 0)"
+              >
+                0
+              </div>
+              <div
+                id="cdMin"
+                class="cdEl"
+                style="transform: matrix(1, 0, 0, 1, 0, 0)"
+              >
+                0
+              </div>
+              <div
+                id="cdSec"
+                class="cdEl"
+                style="transform: matrix(1, 0, 0, 1, 0, 0)"
+              >
+                0
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="timeExt" style="opacity: 1">
+          <div id="timeCenter">
+            <div class="timeEl">DAYS</div>
+            <div class="timeEl">HOURS</div>
+            <div class="timeEl">MIN</div>
+            <div class="timeEl">SEC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

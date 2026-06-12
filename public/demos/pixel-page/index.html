@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <base href="" target="_blank">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./js/gsap.js"></script>
+    <script type="text/javascript" src="./js/draggable.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div id="adsArea">
+        <div id="adArea" class="wrapper opacity0" style="width: 300px; height: 250px; opacity: 1;"><canvas id="canvas"
+                class="abs" width="300" height="250"
+                style="width: 300px; height: 250px; transform-origin: 0% 0%; transform: translate(0px, 0px);"></canvas>
+            <div id="icon" class="abs"
+                style="transform-origin: 50% 50%; top: 95px; left: 35px; transform: translate3d(22.897px, 0px, 0px) scale(0.35, 0.35); opacity: 0;">
+            </div>
+            <div id="dragArea" class="abs"
+                style="width: 300px; height: 250px; touch-action: none; cursor: grab; user-select: none; z-index: 1018; transform: translate3d(0px, 0px, 0px);">
+            </div>
+        </div>
+        <script>var sliderImages = ["./img/banner_group.png", "./img/banner_group2.png", "./img/banner_group3.png"], DEF = { rects: { mode: "ver", amm: 50, list: [], infl: .5, s: .78, x_del: 4 }, slide: { swipe_need: .2, cur: 0, amm: sliderImages.length, name: "pic", format: "jpg", assets_url: "images/", list: [], w: 300, h: 250, scale: null, bg_color: "255, 255, 255" }, w: 300, h: 250 }, clickTag = "https://smartbee.az", _dsptr = function (e) { var track; (new Image).src = "https://dsp-ap.eskimi.com/event/pixel?typeCat=event&test=1&type=" + e }; function startEvent(event_name) { _dsptr(event_name) } function ctaFunction() { window.open(clickTag) } var isStarted = !0; function startedFunction() { isStarted && (isStarted = !1, startEvent("Main"), startEvent("Seen_Frame_1")) } var isFinished = !0; function finishedFunction() { isFinished && (isFinished = !1, startEvent("Seen_All")) }</script>
+        <script src="./js/main.js"></script>
+    </div>
+</body>
+
+</html>

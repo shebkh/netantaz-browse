@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#adArea {
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.rct {
+    width: 300px;
+    height: 250px;
+    position: absolute;
+}
+
+
+
+
+
+
+
+
+#wrap {
+    transform: scale(0.92);
+    -webkit-transform: scale(0.92);
+    -moz-transform: scale(0.92);
+    -o-transform: scale(0.92);
+    -ms-transform: scale(0.92);
+}
+
+
+@keyframes clip1 {
+    0% {
+        clip-path: polygon(0% -50%, 50% -50%, -50% 50%, -100% 50%);
+    }
+
+    100% {
+        clip-path: polygon(150% 50%, 200% 50%, 100% 150%, 50% 150%);
+    }
+}
+
+@keyframes clipa {
+    0% {
+        clip-path: polygon(-5% -55%, 55% -45%, -45% 55%, -95% 55%);
+    }
+
+    100% {
+        clip-path: polygon(150% 50%, 200% 50%, 100% 150%, 50% 150%);
+    }
+}
+
+@keyframes clip2 {
+    0% {
+        clip-path: polygon(50% -50%, 100% -50%, 200% 50%, 150% 50%);
+    }
+
+    100% {
+        clip-path: polygon(-100% 50%, -50% 50%, 50% 150%, 0% 150%);
+    }
+}
+
+@keyframes clipb {
+    0% {
+        clip-path: polygon(40% -60%, 100% -50%, 190% 40%, 150% 50%);
+    }
+
+    100% {
+        clip-path: polygon(-100% 50%, -50% 50%, 50% 150%, 0% 150%);
+    }
+}
+
+@keyframes clip3 {
+    0% {
+        clip-path: polygon(-100% -150%, -50% -150%, -150% -50%, -200% -50%);
+    }
+
+    100% {
+        clip-path: polygon(150% 50%, 200% 50%, 100% 150%, 50% 150%);
+    }
+}
+
+@keyframes clip4 {
+    0% {
+        clip-path: polygon(150% -150%, 200% -150%, 300% -50%, 250% -50%);
+    }
+
+    100% {
+        clip-path: polygon(-100% 50%, -50% 50%, 50% 150%, 0% 150%);
+    }
+}
+
+#clip1 {
+    animation: clip1 4s linear infinite;
+}
+
+#clipa {
+    transform: scale(1.05, 1.05);
+    animation: clipa 9s linear infinite;
+}
+
+#clip2 {
+    transform: scale(1.08, 1.08);
+    animation: clip2 5s linear infinite;
+}
+
+#clipb {
+    transform: scale(1.025, 1.025);
+    animation: clipb 4s linear infinite;
+}
+
+#clip3 {
+    transform: scale(1.11, 1.11);
+    animation: clip3 7s linear infinite;
+}
+
+#clip4 {
+    transform: scale(1.07, 1.07);
+    animation: clip4 6s linear infinite;
+}
+
+.wrapper {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+
+.abs {
+    position: absolute;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.opacity1 {
+    opacity: 1;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.noEvents {
+    pointer-events: none;
+}
+
+.noVis {
+    visibility: none;
+}
+
+.noDisplay {
+    display: none;
+}
