@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, SlidersHorizontal, Sparkles, X, Heart, Smartphone, Monitor, ChevronRight, Info, ArrowUpRight, HelpCircle, Layers, Menu } from 'lucide-react';
+import { Sparkles, X, Heart, Smartphone, Monitor, ChevronRight, Info, ArrowUpRight, HelpCircle, Menu } from 'lucide-react';
 import type { Banner, Lang } from '../types';
 import { translations } from '../data/translations';
 import { INITIAL_BANNERS } from '../data/banners';
 import Toast from './Toast';
+import Sidebar from './Sidebar';
 
 export default function CreativesGallery() {
   const [lang, setLang] = useState<Lang>('az');
@@ -66,107 +67,39 @@ export default function CreativesGallery() {
   const activeTranslations = translations[lang];
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || filterCategory !== 'All' || search !== '';
 
-  const navItemClass = (active: boolean) =>
-    `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${active ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115] hover:bg-[#121115]/10'}`;
-
   return (
     <div className="min-h-screen font-sans bg-[#b4b3ac] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
 
       {/* Toast */}
       <Toast message={toastMessage} />
 
-      {/* Mobile backdrop */}
-      {sidebarOpen && <div className="fixed inset-0 z-40 bg-[#121115]/50 backdrop-blur-sm lg:hidden" onClick={() => setSidebarOpen(false)} />}
-
       <div className="relative lg:flex">
 
-        {/* ============ SIDEBAR: navigation + filters ============ */}
-        <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/55 backdrop-blur-xl border-r border-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-0 lg:z-auto lg:h-screen lg:self-start lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div className="flex flex-col h-full overflow-y-auto no-scrollbar p-6">
-
-            {/* Logo + mobile close */}
-            <div className="flex items-center justify-between mb-6">
-              <span className="text-2xl font-extrabold tracking-tighter brand-display text-[#121115] cursor-pointer" onClick={goto}>
-                net<span className="text-[#856157]">a</span>nt<span className="text-[#77698a] text-base">®</span>
-              </span>
-              <button onClick={() => setSidebarOpen(false)} className="lg:hidden w-8 h-8 rounded-full bg-[#121115]/5 flex items-center justify-center"><X className="w-4 h-4" /></button>
-            </div>
-
-            {/* Language */}
-            <div className="flex bg-[#121115]/10 p-0.5 rounded-full border border-[#121115]/10 text-xs font-bold mb-6 self-start">
-              <button onClick={() => setLang('az')} className={`px-4 py-1.5 rounded-full transition-all ${lang === 'az' ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115]/60 hover:text-[#121115]'}`}>AZ</button>
-              <button onClick={() => setLang('en')} className={`px-4 py-1.5 rounded-full transition-all ${lang === 'en' ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115]/60 hover:text-[#121115]'}`}>EN</button>
-            </div>
-
-            {/* Navigation */}
-            <nav className="space-y-1.5">
-              <button onClick={() => { goto(); setShowOnlyFavs(false); }} className={navItemClass(!showOnlyFavs)}>
-                <Layers className="w-4 h-4" /> {activeTranslations.navGallery}
-              </button>
-              <button onClick={() => { goto(); setShowOnlyFavs(true); }} className={navItemClass(showOnlyFavs)}>
-                <Heart className={`w-4 h-4 ${showOnlyFavs ? 'fill-[#b4b3ac]' : ''}`} /> {activeTranslations.favorites}
-                <span className="ml-auto text-[10px] bg-[#121115]/15 px-2 py-0.5 rounded-full">{favorites.length}</span>
-              </button>
-            </nav>
-
-            {/* Filters */}
-            <div className="mt-7 pt-6 border-t border-[#121115]/10">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-[#856157]" />
-                  <h3 className="text-xs font-bold uppercase tracking-widest">{activeTranslations.filterTitle}</h3>
-                </div>
-                {hasActiveFilters && (
-                  <button onClick={clearFilters} className="text-xs text-[#856157] font-semibold hover:underline">{activeTranslations.clearFilters}</button>
-                )}
-              </div>
-
-              <div className="relative mb-5">
-                <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-[#121115]/40" />
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={activeTranslations.searchPlaceholder}
-                  className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white border border-[#121115]/10 text-xs focus:outline-none focus:ring-2 focus:ring-[#856157]/30 text-[#121115] placeholder:text-[#121115]/30 transition-all" />
-              </div>
-
-              <div className="mb-5">
-                <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{activeTranslations.filterFormat}</h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {formats.map((fmt) => (
-                    <button key={fmt} onClick={() => setFilterFormat(fmt)}
-                      className={`px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide transition-all ${filterFormat === fmt ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
-                      {fmt === 'All' ? activeTranslations.all : fmt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-5">
-                <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{activeTranslations.filterSize}</h4>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {sizes.map((sz) => (
-                    <button key={sz} onClick={() => setFilterSize(sz)}
-                      className={`px-3 py-2 rounded-xl text-[11px] font-bold tracking-wide transition-all text-left flex items-center justify-between ${filterSize === sz ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
-                      <span>{sz === 'All' ? activeTranslations.all : sz}</span>
-                      {filterSize === sz && <div className="w-1.5 h-1.5 rounded-full bg-[#856157]" />}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{activeTranslations.filterCategory}</h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {categories.map((cat) => (
-                    <button key={cat} onClick={() => setFilterCategory(cat)}
-                      className={`px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide transition-all ${filterCategory === cat ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
-                      {cat === 'All' ? activeTranslations.all : cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </aside>
+        <Sidebar
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          onLogoClick={goto}
+          lang={lang}
+          onLangChange={setLang}
+          t={activeTranslations}
+          showOnlyFavs={showOnlyFavs}
+          favoritesCount={favorites.length}
+          onSelectGallery={() => { goto(); setShowOnlyFavs(false); }}
+          onSelectFavorites={() => { goto(); setShowOnlyFavs(true); }}
+          search={search}
+          onSearchChange={setSearch}
+          formats={formats}
+          sizes={sizes}
+          categories={categories}
+          filterFormat={filterFormat}
+          onFilterFormat={setFilterFormat}
+          filterSize={filterSize}
+          onFilterSize={setFilterSize}
+          filterCategory={filterCategory}
+          onFilterCategory={setFilterCategory}
+          hasActiveFilters={hasActiveFilters}
+          onClearFilters={clearFilters}
+        />
 
         {/* ============ MAIN: gallery ============ */}
         <main className="min-w-0 flex-1">
