@@ -83,11 +83,11 @@ The dev server occasionally gets killed by the environment — just rerun `npm r
 - **FT-1 ordering:** sort a copy in render/memo; never mutate `INITIAL_BANNERS`.
 
 ## Open follow-ups (after the FT batch)
-1. **Eyeball the gallery** at localhost:5173 — confirm interactive previews/mockups look right.
-   Four creatives are kept-but-flagged (minor missing asset): `pixel-page`, `scratch-to-reveal`,
-   `shake-break`, `nar` — decide whether to drop any (human call; needs explicit ID list).
-2. **`netant-logo.png`** is now provided — wire it into the sidebar in place of the text wordmark
-   (check a dark logo doesn't disappear on the greige rail; a transparent-bg version may be needed).
+1. ~~Eyeball flagged creatives~~ — RESOLVED. `pixel-page`, `scratch-to-reveal`, `shake-break`,
+   `nar` verified acceptable and KEPT: the only missing refs are decorative/transparent
+   backgrounds (and nar's redundant `.woff` fallbacks; its `.woff2` are present). Nothing dropped.
+2. ~~Wire `netant-logo.png`~~ — N/A. The on-screen text wordmark was removed per request; no logo
+   asset exists in the repo. (If a logo is later provided, add it under `public/` and wire the sidebar.)
 3. Optional: prune dead i18n keys (`navAbout`/`navContact`/`trustedBy`/`statsDesc`/`statsTitle`);
    add Vitest/RTL smoke tests (new dev deps — needs approval).
 
