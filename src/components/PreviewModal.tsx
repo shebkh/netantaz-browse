@@ -98,7 +98,7 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
         </div>
 
         {/* Canvas */}
-        <div className="bg-[#B7B5AC] p-6 sm:p-8 overflow-y-auto">
+        <div className="bg-[#f0ede1] p-6 sm:p-8 overflow-y-auto">
 
           {/* Frame switcher */}
           <div className="flex items-center justify-end mb-6">

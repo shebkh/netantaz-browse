@@ -1,20 +1,59 @@
-/* Brand fonts. Also loaded via <link> in index.html and a runtime injector in
-   CreativesGallery; this @import is the prototype's original mechanism, kept for
-   behavior parity. Must stay above @tailwind for valid CSS @import ordering. */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Brand font: Gilroy (self-hosted from public/fonts/gilroy) ===== */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== Moved out of the prototype's inline <style> (Slice 2) ===== */
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Gilroy', sans-serif;
 }
 
 .brand-display {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Gilroy', sans-serif;
 }
 
 /* Beautiful text-color transitions & blends */

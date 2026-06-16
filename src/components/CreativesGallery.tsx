@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Sparkles, Menu } from 'lucide-react';
 import type { Banner, Lang } from '../types';
 import { translations } from '../data/translations';
@@ -23,15 +23,6 @@ export default function CreativesGallery() {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
-
-  // Reliable brand-font loader (an injected @import is often ignored).
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap';
-    document.head.appendChild(link);
-    return () => { document.head.removeChild(link); };
-  }, []);
 
   const triggerToast = (msg: string) => { setToastMessage(msg); setTimeout(() => setToastMessage(null), 3500); };
 
@@ -90,7 +81,7 @@ export default function CreativesGallery() {
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || search !== '';
 
   return (
-    <div className="min-h-screen font-sans bg-[#B7B5AC] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
+    <div className="min-h-screen font-sans bg-[#f0ede1] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
 
       {/* Toast */}
       <Toast message={toastMessage} />
@@ -123,7 +114,7 @@ export default function CreativesGallery() {
         <main className="min-w-0 flex-1">
 
           {/* Mobile top bar */}
-          <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#B7B5AC]/85 backdrop-blur-xl border-b border-[#121115]/10">
+          <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#f0ede1]/85 backdrop-blur-xl border-b border-[#121115]/10">
             <button onClick={() => setSidebarOpen(true)} aria-label={lang === 'az' ? 'Menyu' : 'Menu'} className="w-9 h-9 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><Menu className="w-4 h-4" /></button>
             <div className="w-9" />
           </div>
