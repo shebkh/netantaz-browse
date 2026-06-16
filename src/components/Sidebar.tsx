@@ -4,7 +4,6 @@ import type { Lang, TranslationStrings } from '../types';
 type SidebarProps = {
   open: boolean; // mobile drawer open
   onClose: () => void;
-  onLogoClick: () => void;
   lang: Lang;
   onLangChange: (lang: Lang) => void;
   t: TranslationStrings;
@@ -32,7 +31,6 @@ const navItemClass = (active: boolean) =>
 export default function Sidebar({
   open,
   onClose,
-  onLogoClick,
   lang,
   onLangChange,
   t,
@@ -63,11 +61,8 @@ export default function Sidebar({
       <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/40 backdrop-blur-2xl border-r border-white/30 shadow-2xl shadow-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-4 lg:z-auto lg:m-4 lg:h-[calc(100vh-2rem)] lg:w-64 lg:self-start lg:rounded-3xl lg:border lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full overflow-y-auto no-scrollbar p-6">
 
-          {/* Logo + mobile close */}
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-2xl font-extrabold tracking-tighter brand-display text-[#121115] cursor-pointer" onClick={onLogoClick}>
-              net<span className="text-[#856157]">a</span>nt<span className="text-[#77698a] text-base">®</span>
-            </span>
+          {/* Mobile close (wordmark removed per request) */}
+          <div className="flex items-center justify-end mb-6">
             <button onClick={onClose} aria-label={t.close} className="lg:hidden w-8 h-8 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><X className="w-4 h-4" /></button>
           </div>
 
@@ -100,10 +95,13 @@ export default function Sidebar({
               )}
             </div>
 
-            <div className="relative mb-5">
-              <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-[#121115]/40" />
-              <input type="text" value={search} onChange={(e) => onSearchChange(e.target.value)} placeholder={t.searchPlaceholder}
-                className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white border border-[#121115]/10 text-xs focus:outline-none focus:ring-2 focus:ring-[#856157]/30 text-[#121115] placeholder:text-[#121115]/30 transition-all" />
+            {/* Animated colorful ring while typing; static border when empty. */}
+            <div className={`relative mb-5 rounded-2xl p-px transition-all ${search ? 'search-typing shadow-md shadow-[#856157]/15' : 'bg-[#121115]/10'}`}>
+              <div className="relative rounded-2xl bg-white">
+                <Search className={`w-4 h-4 absolute left-3.5 top-3.5 transition-colors ${search ? 'text-[#856157]' : 'text-[#121115]/40'}`} />
+                <input type="text" value={search} onChange={(e) => onSearchChange(e.target.value)} placeholder={t.searchPlaceholder}
+                  className="search-typing-field w-full pl-10 pr-4 py-3 rounded-2xl bg-transparent text-xs focus:outline-none text-[#121115] placeholder:text-[#121115]/30 transition-all" />
+              </div>
             </div>
 
             <div className="mb-5">

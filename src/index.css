@@ -67,6 +67,25 @@ body {
   background-size: 24px 24px;
 }
 
+/* Colorful "typing" motion for the search field: while active, an animated
+   brand-gradient ring shifts hue and the caret blinks in the accent color.
+   Brand tokens only (clay/sage/ochre/lavender). Subtle on the greige bg by design. */
+.search-typing {
+  background-image: linear-gradient(
+    120deg,
+    #856157,
+    #5d6964,
+    #a69b85,
+    #77698a,
+    #856157
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 4s ease infinite;
+}
+.search-typing-field {
+  caret-color: #856157;
+}
+
 /* Hide default scrollbars visually */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
