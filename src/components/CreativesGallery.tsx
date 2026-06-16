@@ -7,6 +7,7 @@ import Toast from './Toast';
 import Sidebar from './Sidebar';
 import GalleryGrid from './GalleryGrid';
 import PreviewModal from './PreviewModal';
+import type { PreviewDevice } from './PreviewModal';
 
 export default function CreativesGallery() {
   const [lang, setLang] = useState<Lang>('az');
@@ -18,7 +19,7 @@ export default function CreativesGallery() {
   const [showOnlyFavs, setShowOnlyFavs] = useState(false);
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
-  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop');
+  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop');
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer

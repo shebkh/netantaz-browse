@@ -1,16 +1,51 @@
 import { useEffect, useRef } from 'react';
-import { X, Monitor, Smartphone } from 'lucide-react';
+import type { CSSProperties } from 'react';
+import { X, Monitor, Smartphone, Globe, Apple } from 'lucide-react';
 import type { Banner, Lang, TranslationStrings } from '../types';
 import BannerPreview from './BannerPreview';
 
+// The preview frames the modal can switch between. Exported so the parent's
+// device state stays in sync with this component.
+export type PreviewDevice = 'desktop' | 'mobile' | 'website' | 'ios';
+
 type PreviewModalProps = {
   banner: Banner;
-  device: 'desktop' | 'mobile';
-  onDeviceChange: (device: 'desktop' | 'mobile') => void;
+  device: PreviewDevice;
+  onDeviceChange: (device: PreviewDevice) => void;
   onClose: () => void;
   lang: Lang;
   t: TranslationStrings;
 };
+
+// Renders the LIVE creative inside a mockup: a static image, or the HTML5 demo in a
+// sandboxed iframe (sandbox="allow-scripts" per spec — interactive here, unlike the
+// grid's non-interactive BannerPreview). Sized to (close to) the banner's native size.
+function LiveCreative({ banner, maxHeight }: { banner: Banner; maxHeight: number }) {
+  const [w, h] = banner.size.split('x');
+  const box: CSSProperties = {
+    width: `${w}px`,
+    height: `${h}px`,
+    maxWidth: '100%',
+    maxHeight: `${maxHeight}px`,
+    borderRadius: '8px',
+    overflow: 'hidden',
+    backgroundColor: '#ffffff',
+    display: 'block',
+  };
+  if (banner.preview.kind === 'image') {
+    return <img src={banner.preview.src} alt={banner.title} loading="lazy" style={{ ...box, objectFit: 'contain' }} />;
+  }
+  return (
+    <iframe
+      src={banner.preview.src}
+      title={banner.title}
+      loading="lazy"
+      scrolling="no"
+      sandbox="allow-scripts"
+      style={{ ...box, border: '0' }}
+    />
+  );
+}
 
 export default function PreviewModal({ banner, device, onDeviceChange, onClose, lang, t }: PreviewModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -65,9 +100,9 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
         {/* Canvas */}
         <div className="bg-[#b4b3ac] p-6 sm:p-8 overflow-y-auto">
 
-          {/* Device switcher */}
+          {/* Frame switcher */}
           <div className="flex items-center justify-end mb-6">
-            <div className="flex bg-white/80 p-1 rounded-full border border-[#121115]/10 text-xs">
+            <div className="flex flex-wrap justify-end gap-1 bg-white/80 p-1 rounded-full border border-[#121115]/10 text-xs">
               <button
                 onClick={() => onDeviceChange('desktop')} aria-label={t.mockupDesktop}
                 className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'desktop' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
@@ -81,6 +116,20 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
               >
                 <Smartphone className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{t.mockupPhone}</span>
+              </button>
+              <button
+                onClick={() => onDeviceChange('website')} aria-label={lang === 'az' ? 'Veb sayt' : 'Website'}
+                className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'website' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{lang === 'az' ? 'Veb sayt' : 'Website'}</span>
+              </button>
+              <button
+                onClick={() => onDeviceChange('ios')} aria-label="iOS"
+                className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'ios' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
+              >
+                <Apple className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">iOS</span>
               </button>
             </div>
           </div>
@@ -106,6 +155,70 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
                   <BannerPreview banner={banner} maxHeight={340} />
                 </div>
                 <div className="w-20 h-1 bg-white/20 rounded-full mx-auto mb-1"></div>
+              </div>
+            ) : device === 'website' ? (
+              /* Website mockup: browser window (title bar + address bar) with the
+                 live banner placed in a plausible ad slot in sample page content. */
+              <div className="w-full max-w-[640px] bg-white rounded-2xl border border-[#121115]/10 shadow-xl overflow-hidden">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-3 px-4 py-2.5 bg-stone-100 border-b border-[#121115]/10">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-[#ff5f57]"></span>
+                    <span className="w-3 h-3 rounded-full bg-[#febc2e]"></span>
+                    <span className="w-3 h-3 rounded-full bg-[#28c840]"></span>
+                  </div>
+                  <div className="flex-grow flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#121115]/10 text-[11px] text-[#121115]/50">
+                    <Globe className="w-3 h-3 text-[#121115]/40" />
+                    <span className="truncate">https://www.netant.az</span>
+                  </div>
+                </div>
+                {/* Sample page content with the ad slot */}
+                <div className="p-5 bg-white">
+                  <div className="h-4 w-1/2 rounded bg-[#121115]/10 mb-2"></div>
+                  <div className="h-2.5 w-full rounded bg-[#121115]/[0.06] mb-1.5"></div>
+                  <div className="h-2.5 w-11/12 rounded bg-[#121115]/[0.06] mb-1.5"></div>
+                  <div className="h-2.5 w-3/4 rounded bg-[#121115]/[0.06] mb-4"></div>
+                  {/* Ad slot */}
+                  <div className="my-4 flex flex-col items-center">
+                    <span className="text-[9px] uppercase tracking-widest text-[#121115]/30 mb-1.5">
+                      {lang === 'az' ? 'Reklam' : 'Advertisement'}
+                    </span>
+                    <LiveCreative banner={banner} maxHeight={400} />
+                  </div>
+                  <div className="h-2.5 w-full rounded bg-[#121115]/[0.06] mb-1.5"></div>
+                  <div className="h-2.5 w-5/6 rounded bg-[#121115]/[0.06]"></div>
+                </div>
+              </div>
+            ) : device === 'ios' ? (
+              /* iOS mockup: iPhone-style bezel with the live banner shown in-page. */
+              <div className="relative mx-auto w-[300px] h-[600px] bg-[#121115] rounded-[3.2rem] p-3 shadow-2xl border-4 border-stone-800 flex flex-col">
+                {/* Notch */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#121115] rounded-b-3xl z-20"></div>
+                {/* Screen */}
+                <div className="flex-grow rounded-[2.4rem] bg-white overflow-hidden flex flex-col">
+                  {/* iOS status bar */}
+                  <div className="flex justify-between items-center text-[10px] font-semibold text-[#121115] px-6 pt-3 pb-1">
+                    <span>9:41</span>
+                    <div className="flex items-center gap-1">
+                      <span className="w-3.5 h-2 rounded-sm bg-[#121115]/70"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#121115]/70"></span>
+                    </div>
+                  </div>
+                  {/* In-app page content with the ad */}
+                  <div className="flex-grow overflow-y-auto px-4 py-3 flex flex-col items-center">
+                    <div className="w-full h-3.5 rounded bg-[#121115]/10 mb-2"></div>
+                    <div className="w-11/12 h-2.5 rounded bg-[#121115]/[0.06] mb-1.5 self-start"></div>
+                    <div className="w-3/4 h-2.5 rounded bg-[#121115]/[0.06] mb-4 self-start"></div>
+                    <span className="text-[9px] uppercase tracking-widest text-[#121115]/30 mb-1.5">
+                      {lang === 'az' ? 'Reklam' : 'Advertisement'}
+                    </span>
+                    <LiveCreative banner={banner} maxHeight={360} />
+                    <div className="w-full h-2.5 rounded bg-[#121115]/[0.06] mt-4 mb-1.5"></div>
+                    <div className="w-5/6 h-2.5 rounded bg-[#121115]/[0.06] self-start"></div>
+                  </div>
+                </div>
+                {/* Home indicator */}
+                <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-28 h-1 bg-[#121115]/80 rounded-full"></div>
               </div>
             ) : (
               /* Desktop frame */
