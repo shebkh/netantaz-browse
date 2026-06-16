@@ -57,7 +57,10 @@ export default function Sidebar({
       {open && <div className="fixed inset-0 z-40 bg-[#121115]/50 backdrop-blur-sm lg:hidden" onClick={onClose} />}
 
       {/* ============ SIDEBAR: navigation + filters ============ */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/55 backdrop-blur-xl border-r border-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-0 lg:z-auto lg:h-screen lg:self-start lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+      {/* Matte glassmorphism rail: translucent bg + backdrop-blur + subtle border + soft
+          shadow. Edge-to-edge off-canvas drawer below 1024px; an inset rounded glass panel
+          on desktop. Brand tokens only; the flat greige page bg keeps the blur subtle by design. */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/40 backdrop-blur-2xl border-r border-white/30 shadow-2xl shadow-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-4 lg:z-auto lg:m-4 lg:h-[calc(100vh-2rem)] lg:w-64 lg:self-start lg:rounded-3xl lg:border lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full overflow-y-auto no-scrollbar p-6">
 
           {/* Logo + mobile close */}
