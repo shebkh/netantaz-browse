@@ -1,12 +1,10 @@
 import { Search, SlidersHorizontal, X, Heart, Layers, Image, Video } from 'lucide-react';
-import type { Lang, TranslationStrings } from '../types';
+import type { TranslationStrings } from '../types';
 import type { GallerySection } from './CreativesGallery';
 
 type SidebarProps = {
   open: boolean; // mobile drawer open
   onClose: () => void;
-  lang: Lang;
-  onLangChange: (lang: Lang) => void;
   t: TranslationStrings;
 
   section: GallerySection;
@@ -29,13 +27,11 @@ type SidebarProps = {
 };
 
 const navItemClass = (active: boolean) =>
-  `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${active ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115] hover:bg-[#121115]/10'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]`;
+  `w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-normal transition-all ${active ? 'bg-[#121115] text-[#C47BE4]' : 'text-[#121115] hover:bg-[#121115]/10'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]`;
 
 export default function Sidebar({
   open,
   onClose,
-  lang,
-  onLangChange,
   t,
   section,
   favoritesCount,
@@ -71,12 +67,6 @@ export default function Sidebar({
             <button onClick={onClose} aria-label={t.close} className="lg:hidden w-8 h-8 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><X className="w-4 h-4" /></button>
           </div>
 
-          {/* Language */}
-          <div className="flex bg-[#121115]/10 p-0.5 rounded-full border border-[#121115]/10 text-xs font-bold mb-6 self-start">
-            <button onClick={() => onLangChange('az')} className={`px-4 py-1.5 rounded-full transition-all ${lang === 'az' ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115]/60 hover:text-[#121115]'}`}>AZ</button>
-            <button onClick={() => onLangChange('en')} className={`px-4 py-1.5 rounded-full transition-all ${lang === 'en' ? 'bg-[#121115] text-[#b4b3ac]' : 'text-[#121115]/60 hover:text-[#121115]'}`}>EN</button>
-          </div>
-
           {/* Navigation */}
           <nav className="space-y-1.5">
             <button onClick={onSelectGallery} className={navItemClass(section === 'gallery')}>
@@ -89,8 +79,8 @@ export default function Sidebar({
               <Video className="w-4 h-4" /> {t.navVideo}
             </button>
             <button onClick={onSelectFavorites} className={navItemClass(section === 'favorites')}>
-              <Heart className={`w-4 h-4 ${section === 'favorites' ? 'fill-[#b4b3ac]' : ''}`} /> {t.favorites}
-              <span className="ml-auto text-[10px] bg-[#121115]/15 px-2 py-0.5 rounded-full">{favoritesCount}</span>
+              <Heart className={`w-4 h-4 ${section === 'favorites' ? 'fill-[#C47BE4]' : ''}`} /> {t.favorites}
+              <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full ${section === 'favorites' ? 'bg-white/15' : 'bg-[#121115]/15'}`}>{favoritesCount}</span>
             </button>
           </nav>
 
@@ -99,10 +89,10 @@ export default function Sidebar({
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="w-4 h-4 text-[#856157]" />
-                <h3 className="text-xs font-bold uppercase tracking-widest">{t.filterTitle}</h3>
+                <h3 className="text-xs font-normal uppercase tracking-widest">{t.filterTitle}</h3>
               </div>
               {hasActiveFilters && (
-                <button onClick={onClearFilters} className="text-xs text-[#856157] font-semibold hover:underline">{t.clearFilters}</button>
+                <button onClick={onClearFilters} className="text-xs text-[#856157] font-normal hover:underline">{t.clearFilters}</button>
               )}
             </div>
 
@@ -116,11 +106,11 @@ export default function Sidebar({
             </div>
 
             <div className="mb-5">
-              <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{t.filterFormat}</h4>
+              <h4 className="text-[11px] font-normal uppercase text-[#121115]/60 mb-2.5 tracking-widest">{t.filterFormat}</h4>
               <div className="flex flex-wrap gap-1.5">
                 {formats.map((fmt) => (
                   <button key={fmt} onClick={() => onFilterFormat(fmt)}
-                    className={`px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide transition-all ${filterFormat === fmt ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
+                    className={`px-3 py-1.5 rounded-full text-[11px] font-normal tracking-wide transition-all ${filterFormat === fmt ? 'bg-[#121115] text-[#C47BE4]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
                     {fmt === 'All' ? t.all : fmt}
                   </button>
                 ))}
@@ -128,13 +118,13 @@ export default function Sidebar({
             </div>
 
             <div className="mb-5">
-              <h4 className="text-[11px] font-bold uppercase text-[#121115]/60 mb-2.5 tracking-widest">{t.filterSize}</h4>
+              <h4 className="text-[11px] font-normal uppercase text-[#121115]/60 mb-2.5 tracking-widest">{t.filterSize}</h4>
               <div className="grid grid-cols-2 gap-1.5">
                 {sizes.map((sz) => (
                   <button key={sz} onClick={() => onFilterSize(sz)}
-                    className={`px-3 py-2 rounded-xl text-[11px] font-bold tracking-wide transition-all text-left flex items-center justify-between ${filterSize === sz ? 'bg-[#121115] text-[#b4b3ac]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
+                    className={`px-3 py-2 rounded-xl text-[11px] font-normal tracking-wide transition-all text-left flex items-center justify-between ${filterSize === sz ? 'bg-[#121115] text-[#C47BE4]' : 'bg-white hover:bg-white/70 text-[#121115] border border-[#121115]/5'}`}>
                     <span>{sz === 'All' ? t.all : sz}</span>
-                    {filterSize === sz && <div className="w-1.5 h-1.5 rounded-full bg-[#856157]" />}
+                    {filterSize === sz && <div className="w-1.5 h-1.5 rounded-full bg-[#C47BE4]" />}
                   </button>
                 ))}
               </div>

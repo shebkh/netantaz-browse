@@ -123,9 +123,20 @@ body {
   animation: marqueeWave 8s ease-in-out infinite;
 }
 
+/* Dotted texture as a pseudo-element so its fade-out mask doesn't affect the
+   section's real content. Dots fade away gradually (linear) toward the bottom. */
 .premium-grain {
-  background-image: radial-gradient(rgba(18, 17, 21, 0.05) 1px, transparent 0);
-  background-size: 24px 24px;
+  position: relative;
+}
+.premium-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(18, 17, 21, 0.18) 1.5px, transparent 0);
+  background-size: 40px 40px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
 }
 
 /* Colorful "typing" motion for the search field: while active, an animated

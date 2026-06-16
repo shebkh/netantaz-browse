@@ -100,6 +100,19 @@ export default function CreativesGallery() {
   const activeTranslations = translations[lang];
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || search !== '';
 
+  // Language switch: a single round button showing the current language; clicking
+  // it toggles AZ<->EN. Rendered top-right of the main content area (desktop) and
+  // in the mobile top bar. Lives outside the sidebar now.
+  const langToggle = (
+    <button
+      onClick={() => setLang(lang === 'az' ? 'en' : 'az')}
+      aria-label={lang === 'az' ? 'Dili dəyiş (İngilis)' : 'Switch language (Azerbaijani)'}
+      className="w-10 h-10 rounded-full bg-[#121115]/10 border border-[#121115]/10 text-xs font-bold uppercase text-[#121115] flex items-center justify-center hover:bg-[#121115]/15 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"
+    >
+      {lang.toUpperCase()}
+    </button>
+  );
+
   return (
     <div className="min-h-screen font-sans bg-[#f0ede1] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
 
@@ -111,8 +124,6 @@ export default function CreativesGallery() {
         <Sidebar
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
-          lang={lang}
-          onLangChange={setLang}
           t={activeTranslations}
           section={section}
           favoritesCount={favorites.length}
@@ -135,22 +146,27 @@ export default function CreativesGallery() {
         {/* ============ MAIN: gallery ============ */}
         <main className="min-w-0 flex-1">
 
-          {/* Mobile top bar */}
+          {/* Mobile top bar: hamburger + language switch (top-right) */}
           <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#f0ede1]/85 backdrop-blur-xl border-b border-[#121115]/10">
             <button onClick={() => setSidebarOpen(true)} aria-label={lang === 'az' ? 'Menyu' : 'Menu'} className="w-9 h-9 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><Menu className="w-4 h-4" /></button>
-            <div className="w-9" />
+            {langToggle}
+          </div>
+
+          {/* Desktop top bar: language switch pinned to the top-right corner */}
+          <div className="hidden lg:flex sticky top-0 z-30 items-center justify-end px-12 py-4 bg-[#f0ede1]/85 backdrop-blur-xl border-b border-[#121115]/10">
+            {langToggle}
           </div>
 
           {/* Compact hero */}
           <section className="premium-grain border-b border-[#121115]/10 px-5 lg:px-12 pt-10 pb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#121115]/5 rounded-full text-[11px] font-semibold tracking-widest text-[#121115]/80 uppercase mb-4 border border-[#121115]/10">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#121115]/5 rounded-full text-[11px] font-medium tracking-widest text-[#121115]/80 uppercase mb-4 border border-[#121115]/10">
               <Sparkles className="w-3.5 h-3.5 text-[#856157] animate-pulse" />
               {activeTranslations.heroSub}
             </span>
-            <h1 className="hero-rise text-3xl md:text-5xl font-black tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
+            <h1 className="hero-rise text-3xl md:text-5xl font-bold tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
               {activeTranslations.heroTitlePart1} <span className="gradient-text">{activeTranslations.heroTitleHighlight}</span> {activeTranslations.heroTitlePart2}
             </h1>
-            <p className="mt-4 text-sm md:text-base text-[#121115]/70 max-w-2xl leading-relaxed">{activeTranslations.heroDesc}</p>
+            <p className="mt-4 text-sm md:text-base font-medium text-[#121115]/70 max-w-2xl leading-relaxed">{activeTranslations.heroDesc}</p>
           </section>
 
                     <GalleryGrid
