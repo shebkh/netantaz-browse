@@ -57,7 +57,7 @@ export default function CreativesGallery() {
   ];
 
   const filteredBanners = useMemo(() => {
-    return INITIAL_BANNERS.filter(item => {
+    const matched = INITIAL_BANNERS.filter(item => {
       const s = search.toLowerCase();
       const nameMatch = item.title.toLowerCase().includes(s) || item.format.toLowerCase().includes(s) || item.category.toLowerCase().includes(s);
       return (search === '' || nameMatch)
@@ -65,6 +65,14 @@ export default function CreativesGallery() {
         && (filterSize === 'All' || item.size === filterSize)
         && (!showOnlyFavs || favorites.includes(item.id));
     });
+    // Showcase order: animated creatives (live HTML5 demos) lead, then static images.
+    // Sort a copy in the render path with a stable key so within-group order is preserved;
+    // never mutate INITIAL_BANNERS.
+    const isAnimated = (b: Banner) => b.preview.kind === 'demo';
+    return matched
+      .map((banner, index) => ({ banner, index }))
+      .sort((a, b) => (isAnimated(b.banner) ? 1 : 0) - (isAnimated(a.banner) ? 1 : 0) || a.index - b.index)
+      .map(({ banner }) => banner);
   }, [search, filterFormat, filterSize, showOnlyFavs, favorites]);
 
   const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };

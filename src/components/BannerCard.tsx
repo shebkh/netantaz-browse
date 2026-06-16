@@ -41,7 +41,7 @@ export default function BannerCard({ banner, isFav, lang, t, onOpen, onToggleFav
       <div className="p-6 text-[#b4b3ac] flex-grow flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between gap-2 mb-2">
-            <h3 className="text-base font-bold tracking-tight text-white">{banner.title}</h3>
+            <h3 className="text-base font-bold tracking-tight text-white">{banner.size}</h3>
             <span className="text-[10px] bg-white/10 px-2.5 py-1 rounded-full text-[#b0a58d] font-bold uppercase tracking-widest">{banner.size}</span>
           </div>
           <p className="text-xs text-[#b4b3ac]/75 leading-relaxed line-clamp-2 mb-4">{banner.description}</p>

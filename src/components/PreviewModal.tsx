@@ -49,7 +49,7 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
               {t.interactiveLive}
             </p>
-            <h3 className="mt-2 text-2xl font-bold tracking-tight brand-display text-[#121115]">{banner.title}</h3>
+            <h3 className="mt-2 text-2xl font-bold tracking-tight brand-display text-[#121115]">{banner.size}</h3>
             <p className="text-xs text-[#121115]/55 mt-0.5">{banner.ratioLabel} · {banner.size}</p>
           </div>
           <button
