@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
-import { X, Monitor, Smartphone, Globe, Apple } from 'lucide-react';
+import { X, Monitor, Smartphone, Globe } from 'lucide-react';
 import type { Banner, Lang, TranslationStrings } from '../types';
 import BannerPreview from './BannerPreview';
 
 // The preview frames the modal can switch between. Exported so the parent's
 // device state stays in sync with this component.
-export type PreviewDevice = 'desktop' | 'mobile' | 'website' | 'ios';
+export type PreviewDevice = 'desktop' | 'mobile' | 'website';
 
 type PreviewModalProps = {
   banner: Banner;
@@ -98,7 +98,7 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
         </div>
 
         {/* Canvas */}
-        <div className="bg-[#b4b3ac] p-6 sm:p-8 overflow-y-auto">
+        <div className="bg-[#B7B5AC] p-6 sm:p-8 overflow-y-auto">
 
           {/* Frame switcher */}
           <div className="flex items-center justify-end mb-6">
@@ -123,13 +123,6 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
               >
                 <Globe className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{lang === 'az' ? 'Veb sayt' : 'Website'}</span>
-              </button>
-              <button
-                onClick={() => onDeviceChange('ios')} aria-label="iOS"
-                className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'ios' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
-              >
-                <Apple className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">iOS</span>
               </button>
             </div>
           </div>
@@ -188,37 +181,6 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
                   <div className="h-2.5 w-full rounded bg-[#121115]/[0.06] mb-1.5"></div>
                   <div className="h-2.5 w-5/6 rounded bg-[#121115]/[0.06]"></div>
                 </div>
-              </div>
-            ) : device === 'ios' ? (
-              /* iOS mockup: iPhone-style bezel with the live banner shown in-page. */
-              <div className="relative mx-auto w-[300px] h-[600px] bg-[#121115] rounded-[3.2rem] p-3 shadow-2xl border-4 border-stone-800 flex flex-col">
-                {/* Notch */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#121115] rounded-b-3xl z-20"></div>
-                {/* Screen */}
-                <div className="flex-grow rounded-[2.4rem] bg-white overflow-hidden flex flex-col">
-                  {/* iOS status bar */}
-                  <div className="flex justify-between items-center text-[10px] font-semibold text-[#121115] px-6 pt-3 pb-1">
-                    <span>9:41</span>
-                    <div className="flex items-center gap-1">
-                      <span className="w-3.5 h-2 rounded-sm bg-[#121115]/70"></span>
-                      <span className="w-2 h-2 rounded-full bg-[#121115]/70"></span>
-                    </div>
-                  </div>
-                  {/* In-app page content with the ad */}
-                  <div className="flex-grow overflow-y-auto px-4 py-3 flex flex-col items-center">
-                    <div className="w-full h-3.5 rounded bg-[#121115]/10 mb-2"></div>
-                    <div className="w-11/12 h-2.5 rounded bg-[#121115]/[0.06] mb-1.5 self-start"></div>
-                    <div className="w-3/4 h-2.5 rounded bg-[#121115]/[0.06] mb-4 self-start"></div>
-                    <span className="text-[9px] uppercase tracking-widest text-[#121115]/30 mb-1.5">
-                      {lang === 'az' ? 'Reklam' : 'Advertisement'}
-                    </span>
-                    <LiveCreative banner={banner} maxHeight={360} />
-                    <div className="w-full h-2.5 rounded bg-[#121115]/[0.06] mt-4 mb-1.5"></div>
-                    <div className="w-5/6 h-2.5 rounded bg-[#121115]/[0.06] self-start"></div>
-                  </div>
-                </div>
-                {/* Home indicator */}
-                <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-28 h-1 bg-[#121115]/80 rounded-full"></div>
               </div>
             ) : (
               /* Desktop frame */

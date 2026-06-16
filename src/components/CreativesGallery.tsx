@@ -46,8 +46,14 @@ export default function CreativesGallery() {
     }
   };
 
-  // Filter options derived from the actual banner data, plus broad format buckets.
-  const formats = ['All', ...Array.from(new Set([...INITIAL_BANNERS.map((b) => b.format).sort(), 'Animated', 'Static', 'Video', 'Interactive']))];
+  // Display-only format merge: collapse the "Weather Banner *" variants into one
+  // "Weather" chip. Maps a raw format to its displayed label; the filter predicate
+  // matches on the label so selecting "Weather" matches all weather variants. No
+  // `format` data is edited.
+  const formatLabel = (format: string) => (format.startsWith('Weather Banner') ? 'Weather' : format);
+
+  // Filter options derived from the actual banner data (post-merge), plus broad format buckets.
+  const formats = ['All', ...Array.from(new Set([...INITIAL_BANNERS.map((b) => formatLabel(b.format)).sort(), 'Animated', 'Static', 'Video', 'Interactive']))];
   const sizes = [
     'All',
     ...Array.from(new Set(INITIAL_BANNERS.map((b) => b.size))).sort((a, b) => {
@@ -62,7 +68,7 @@ export default function CreativesGallery() {
       const s = search.toLowerCase();
       const nameMatch = item.title.toLowerCase().includes(s) || item.format.toLowerCase().includes(s) || item.category.toLowerCase().includes(s);
       return (search === '' || nameMatch)
-        && (filterFormat === 'All' || item.format === filterFormat)
+        && (filterFormat === 'All' || formatLabel(item.format) === filterFormat)
         && (filterSize === 'All' || item.size === filterSize)
         && (!showOnlyFavs || favorites.includes(item.id));
     });
@@ -84,7 +90,7 @@ export default function CreativesGallery() {
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || search !== '';
 
   return (
-    <div className="min-h-screen font-sans bg-[#b4b3ac] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
+    <div className="min-h-screen font-sans bg-[#B7B5AC] text-[#121115] selection:bg-[#121115] selection:text-[#b4b3ac]">
 
       {/* Toast */}
       <Toast message={toastMessage} />
@@ -117,7 +123,7 @@ export default function CreativesGallery() {
         <main className="min-w-0 flex-1">
 
           {/* Mobile top bar */}
-          <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#b4b3ac]/85 backdrop-blur-xl border-b border-[#121115]/10">
+          <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-[#B7B5AC]/85 backdrop-blur-xl border-b border-[#121115]/10">
             <button onClick={() => setSidebarOpen(true)} aria-label={lang === 'az' ? 'Menyu' : 'Menu'} className="w-9 h-9 rounded-full bg-[#121115]/5 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"><Menu className="w-4 h-4" /></button>
             <div className="w-9" />
           </div>
@@ -128,7 +134,7 @@ export default function CreativesGallery() {
               <Sparkles className="w-3.5 h-3.5 text-[#856157] animate-pulse" />
               {activeTranslations.heroSub}
             </span>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
+            <h1 className="hero-rise text-3xl md:text-5xl font-black tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
               {activeTranslations.heroTitlePart1} <span className="gradient-text">{activeTranslations.heroTitleHighlight}</span> {activeTranslations.heroTitlePart2}
             </h1>
             <p className="mt-4 text-sm md:text-base text-[#121115]/70 max-w-2xl leading-relaxed">{activeTranslations.heroDesc}</p>
@@ -147,7 +153,7 @@ export default function CreativesGallery() {
           {/* Slim footer */}
           <footer className="px-5 lg:px-12 py-8 border-t border-[#121115]/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#121115]/55 font-semibold">
             <p>{activeTranslations.footerText}</p>
-            <p>Baku, Azerbaijan · info@netant.az</p>
+            <p>Baku, Azerbaijan</p>
           </footer>
 
         </main>
