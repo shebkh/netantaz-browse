@@ -1,5 +1,6 @@
-import { Search, SlidersHorizontal, X, Heart, Layers } from 'lucide-react';
+import { Search, SlidersHorizontal, X, Heart, Layers, Image, Video } from 'lucide-react';
 import type { Lang, TranslationStrings } from '../types';
+import type { GallerySection } from './CreativesGallery';
 
 type SidebarProps = {
   open: boolean; // mobile drawer open
@@ -8,10 +9,12 @@ type SidebarProps = {
   onLangChange: (lang: Lang) => void;
   t: TranslationStrings;
 
-  showOnlyFavs: boolean;
+  section: GallerySection;
   favoritesCount: number;
   onSelectGallery: () => void;
   onSelectFavorites: () => void;
+  onSelectStatic: () => void;
+  onSelectVideo: () => void;
 
   search: string;
   onSearchChange: (value: string) => void;
@@ -34,10 +37,12 @@ export default function Sidebar({
   lang,
   onLangChange,
   t,
-  showOnlyFavs,
+  section,
   favoritesCount,
   onSelectGallery,
   onSelectFavorites,
+  onSelectStatic,
+  onSelectVideo,
   search,
   onSearchChange,
   formats,
@@ -74,11 +79,17 @@ export default function Sidebar({
 
           {/* Navigation */}
           <nav className="space-y-1.5">
-            <button onClick={onSelectGallery} className={navItemClass(!showOnlyFavs)}>
+            <button onClick={onSelectGallery} className={navItemClass(section === 'gallery')}>
               <Layers className="w-4 h-4" /> {t.navGallery}
             </button>
-            <button onClick={onSelectFavorites} className={navItemClass(showOnlyFavs)}>
-              <Heart className={`w-4 h-4 ${showOnlyFavs ? 'fill-[#b4b3ac]' : ''}`} /> {t.favorites}
+            <button onClick={onSelectStatic} className={navItemClass(section === 'static')}>
+              <Image className="w-4 h-4" /> {t.navStatic}
+            </button>
+            <button onClick={onSelectVideo} className={navItemClass(section === 'video')}>
+              <Video className="w-4 h-4" /> {t.navVideo}
+            </button>
+            <button onClick={onSelectFavorites} className={navItemClass(section === 'favorites')}>
+              <Heart className={`w-4 h-4 ${section === 'favorites' ? 'fill-[#b4b3ac]' : ''}`} /> {t.favorites}
               <span className="ml-auto text-[10px] bg-[#121115]/15 px-2 py-0.5 rounded-full">{favoritesCount}</span>
             </button>
           </nav>

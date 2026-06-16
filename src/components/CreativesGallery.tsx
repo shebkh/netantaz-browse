@@ -9,6 +9,9 @@ import GalleryGrid from './GalleryGrid';
 import PreviewModal from './PreviewModal';
 import type { PreviewDevice } from './PreviewModal';
 
+// Which sidebar browsing section is active.
+export type GallerySection = 'gallery' | 'favorites' | 'static' | 'video';
+
 export default function CreativesGallery() {
   const [lang, setLang] = useState<Lang>('az');
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -16,7 +19,10 @@ export default function CreativesGallery() {
   const [search, setSearch] = useState('');
   const [filterFormat, setFilterFormat] = useState('All');
   const [filterSize, setFilterSize] = useState('All');
-  const [showOnlyFavs, setShowOnlyFavs] = useState(false);
+  // Active browsing section. 'static' groups image banners; 'video' is an
+  // intentionally-empty section (empty-state only); 'favorites' filters to faves.
+  const [section, setSection] = useState<GallerySection>('gallery');
+  const showOnlyFavs = section === 'favorites';
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
   const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop');
@@ -43,8 +49,22 @@ export default function CreativesGallery() {
   // `format` data is edited.
   const formatLabel = (format: string) => (format.startsWith('Weather Banner') ? 'Weather' : format);
 
-  // Filter options derived from the actual banner data (post-merge), plus broad format buckets.
-  const formats = ['All', ...Array.from(new Set([...INITIAL_BANNERS.map((b) => formatLabel(b.format)).sort(), 'Animated', 'Static', 'Video', 'Interactive']))];
+  // Curated "Interaktiv" group (display-only): a fixed set of banner ids surfaced
+  // under one Format chip. The 4 "Rich Media" banners share format "Rich Media".
+  const INTERAKTIV_IDS = new Set(['turan-bank', 'nar', 'netflix-banner', 'rich-media', 'rich-media-2', 'rich-media-3', 'rich-media-4']);
+  const matchesFormat = (b: Banner) =>
+    filterFormat === 'All' || (filterFormat === 'Interaktiv' ? INTERAKTIV_IDS.has(b.id) : formatLabel(b.format) === filterFormat);
+
+  // Filter options: data-derived labels (post-merge), plus the curated "Interaktiv"
+  // bucket. The individual formats now merged under "Interaktiv" are hidden from the
+  // chip row so those banners are only reachable via that chip. "Animated"/"Video"
+  // buckets removed per request.
+  const MERGED_INTO_INTERAKTIV = new Set(['Nar', 'Netflix Banner', 'Turan Bank', 'Rich Media']);
+  const formats = [
+    'All',
+    ...Array.from(new Set(INITIAL_BANNERS.map((b) => formatLabel(b.format)).filter((f) => !MERGED_INTO_INTERAKTIV.has(f)).sort())),
+    'Interaktiv',
+  ];
   const sizes = [
     'All',
     ...Array.from(new Set(INITIAL_BANNERS.map((b) => b.size))).sort((a, b) => {
@@ -59,7 +79,7 @@ export default function CreativesGallery() {
       const s = search.toLowerCase();
       const nameMatch = item.title.toLowerCase().includes(s) || item.format.toLowerCase().includes(s) || item.category.toLowerCase().includes(s);
       return (search === '' || nameMatch)
-        && (filterFormat === 'All' || formatLabel(item.format) === filterFormat)
+        && matchesFormat(item)
         && (filterSize === 'All' || item.size === filterSize)
         && (!showOnlyFavs || favorites.includes(item.id));
     });
@@ -71,10 +91,10 @@ export default function CreativesGallery() {
       .map((banner, index) => ({ banner, index }))
       .sort((a, b) => (isAnimated(b.banner) ? 1 : 0) - (isAnimated(a.banner) ? 1 : 0) || a.index - b.index)
       .map(({ banner }) => banner);
-  }, [search, filterFormat, filterSize, showOnlyFavs, favorites]);
+  }, [search, filterFormat, filterSize, showOnlyFavs, favorites, section]);
 
   const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };
-  const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setSearch(''); setShowOnlyFavs(false); };
+  const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setSearch(''); setSection('gallery'); };
   const goto = () => { setSidebarOpen(false); };
 
   const activeTranslations = translations[lang];
@@ -94,10 +114,12 @@ export default function CreativesGallery() {
           lang={lang}
           onLangChange={setLang}
           t={activeTranslations}
-          showOnlyFavs={showOnlyFavs}
+          section={section}
           favoritesCount={favorites.length}
-          onSelectGallery={() => { goto(); setShowOnlyFavs(false); }}
-          onSelectFavorites={() => { goto(); setShowOnlyFavs(true); }}
+          onSelectGallery={() => { goto(); setSection('gallery'); }}
+          onSelectFavorites={() => { goto(); setSection('favorites'); }}
+          onSelectStatic={() => { goto(); setSection('static'); }}
+          onSelectVideo={() => { goto(); setSection('video'); }}
           search={search}
           onSearchChange={setSearch}
           formats={formats}
@@ -133,6 +155,7 @@ export default function CreativesGallery() {
 
                     <GalleryGrid
             banners={filteredBanners}
+            section={section}
             favorites={favorites}
             lang={lang}
             t={activeTranslations}

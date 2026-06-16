@@ -42,6 +42,12 @@ export type TranslationStrings = {
   filterCategory: string;
   all: string;
   favorites: string;
+  navStatic: string;
+  navVideo: string;
+  videoEmptyTitle: string;
+  videoEmptyDesc: string;
+  staticEmptyTitle: string;
+  staticEmptyDesc: string;
   statsTitle: string;
   statsDesc: string;
   viewDemo: string;
