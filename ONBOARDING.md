@@ -7,7 +7,7 @@ Bilingual AZ/EN. Built by refactoring a single-file prototype (`ad_gallery_websi
 into a clean Vite project, slice by slice, then ingesting real sample creatives.
 
 ## Status (current)
-- **All slice work (0–7) is DONE, committed, and pushed.** Latest commit `b43c53c` on `main`.
+- **All slice work (0–7) is DONE, committed, and pushed.** Latest commit `5315391` on `main`.
   (Update this hash as the FT tasks below land.)
 - Gallery = **53 real banners**: 17 static images + 36 interactive HTML5 creatives.
 - `npx tsc --noEmit` = 0 errors; `npm run build` succeeds.
