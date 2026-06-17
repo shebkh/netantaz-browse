@@ -25,7 +25,7 @@ export default function CreativesGallery() {
   const showOnlyFavs = section === 'favorites';
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
-  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('desktop');
+  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('mobile');
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false); // mobile drawer
@@ -93,9 +93,18 @@ export default function CreativesGallery() {
       .map(({ banner }) => banner);
   }, [search, filterFormat, filterSize, showOnlyFavs, favorites, section]);
 
-  const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('desktop'); };
+  const handleOpenSandbox = (banner: Banner) => { setSelectedBanner(banner); setPreviewDevice('mobile'); };
   const clearFilters = () => { setFilterFormat('All'); setFilterSize('All'); setSearch(''); setSection('gallery'); };
   const goto = () => { setSidebarOpen(false); };
+
+  // Filters operate on the grid, but Static/Video render an empty "coming soon" state
+  // that suppresses the grid — so applying a filter there looks like a no-op. Snap back
+  // to the gallery (the grid view) whenever a filter is touched; favorites keep filtering
+  // their own subset.
+  const ensureGridSection = () => { if (section === 'static' || section === 'video') setSection('gallery'); };
+  const handleFilterFormat = (value: string) => { ensureGridSection(); setFilterFormat(value); };
+  const handleFilterSize = (value: string) => { ensureGridSection(); setFilterSize(value); };
+  const handleSearchChange = (value: string) => { ensureGridSection(); setSearch(value); };
 
   const activeTranslations = translations[lang];
   const hasActiveFilters = filterFormat !== 'All' || filterSize !== 'All' || search !== '';
@@ -132,13 +141,13 @@ export default function CreativesGallery() {
           onSelectStatic={() => { goto(); setSection('static'); }}
           onSelectVideo={() => { goto(); setSection('video'); }}
           search={search}
-          onSearchChange={setSearch}
+          onSearchChange={handleSearchChange}
           formats={formats}
           sizes={sizes}
           filterFormat={filterFormat}
-          onFilterFormat={setFilterFormat}
+          onFilterFormat={handleFilterFormat}
           filterSize={filterSize}
-          onFilterSize={setFilterSize}
+          onFilterSize={handleFilterSize}
           hasActiveFilters={hasActiveFilters}
           onClearFilters={clearFilters}
         />
