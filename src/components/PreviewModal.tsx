@@ -29,39 +29,53 @@ function LiveCreative({ banner, maxWidth, maxHeight }: { banner: Banner; maxWidt
   const nativeW = w || 300;
   const nativeH = h || 250;
   const scale = Math.min(1, maxWidth / nativeW, maxHeight / nativeH);
+  const boxW = nativeW * scale;
+  const boxH = nativeH * scale;
 
-  // Footprint after scaling — this is what occupies space on the page.
+  // Footprint after scaling — what occupies space on the page. The creative fills it.
   const outer: CSSProperties = {
-    width: `${nativeW * scale}px`,
-    height: `${nativeH * scale}px`,
+    width: `${boxW}px`,
+    height: `${boxH}px`,
     borderRadius: '8px',
     overflow: 'hidden',
     backgroundColor: '#ffffff',
   };
-  // The creative drawn at native px then scaled down from the top-left corner.
-  const inner: CSSProperties = {
-    width: `${nativeW}px`,
-    height: `${nativeH}px`,
-    transform: `scale(${scale})`,
-    transformOrigin: 'top left',
-    display: 'block',
-    border: '0',
-  };
 
+  if (banner.preview.kind === 'image') {
+    // The JPG fills the box; box ratio == declared ratio. contain letterboxes any slight
+    // ratio mismatch instead of cropping/distorting the creative.
+    return (
+      <div style={outer}>
+        <img
+          src={banner.preview.src}
+          alt={banner.title}
+          style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+        />
+      </div>
+    );
+  }
+
+  // Interactive in the modal: NO pointer-events:none here (unlike the grid), so the user
+  // can click/hover/scratch the live HTML5 creative in real time. An iframe renders at
+  // fixed px, so transform:scale shrinks it without distortion. allow-same-origin lets
+  // first-party demos load their own relative assets — else many render blank.
   return (
     <div style={outer}>
-      {banner.preview.kind === 'image' ? (
-        <img src={banner.preview.src} alt={banner.title} loading="lazy" style={{ ...inner, objectFit: 'contain' }} />
-      ) : (
-        <iframe
-          src={banner.preview.src}
-          title={banner.title}
-          loading="lazy"
-          scrolling="no"
-          sandbox="allow-scripts"
-          style={inner}
-        />
-      )}
+      <iframe
+        src={banner.preview.src}
+        title={banner.title}
+        loading="lazy"
+        scrolling="no"
+        sandbox="allow-scripts allow-same-origin"
+        style={{
+          width: `${nativeW}px`,
+          height: `${nativeH}px`,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          border: '0',
+          display: 'block',
+        }}
+      />
     </div>
   );
 }

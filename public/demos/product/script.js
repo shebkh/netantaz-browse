@@ -9,11 +9,11 @@ const rect4Front = document.querySelector('#rect4 .front');
 const rect4Back = document.querySelector('#rect4 .back');
 
 // Example: Set background images for front and back
-rect1Front.style.backgroundImage = "url('layer.png')";
+rect1Front.style.backgroundImage = "url('Layer.png')";
 rect1Back.style.backgroundImage = "url('back.png')";
-rect2Front.style.backgroundImage = "url('layer.png')";
+rect2Front.style.backgroundImage = "url('Layer.png')";
 rect2Back.style.backgroundImage = "url('back.png')";
-rect3Front.style.backgroundImage = "url('layer.png')";
+rect3Front.style.backgroundImage = "url('Layer.png')";
 rect3Back.style.backgroundImage = "url('back.png')";
-rect4Front.style.backgroundImage = "url('layer.png')";
+rect4Front.style.backgroundImage = "url('Layer.png')";
 rect4Back.style.backgroundImage = "url('back.png')";

@@ -81,7 +81,9 @@ body {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.55s ease, transform 0.55s ease;
-  will-change: opacity, transform;
+  /* No will-change: promoting this to its own layer can leave a static <img> that
+     finishes decoding AFTER the layer rasterizes painted blank (a grey box) in Chromium,
+     while iframes (own layer) are unaffected. Dropping it forces a normal repaint. */
 }
 .card-reveal.is-visible {
   opacity: 1;
