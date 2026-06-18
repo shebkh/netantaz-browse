@@ -1,4 +1,6 @@
-import { Search, SlidersHorizontal, X, Heart, Layers, Image, Video } from 'lucide-react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { Search, SlidersHorizontal, X, Heart, Layers, Image, Video, LayoutGrid, ChevronRight, Check } from 'lucide-react';
 import type { TranslationStrings } from '../types';
 import type { GallerySection } from './CreativesGallery';
 
@@ -13,6 +15,9 @@ type SidebarProps = {
   onSelectFavorites: () => void;
   onSelectStatic: () => void;
   onSelectVideo: () => void;
+  formatNames: string[];
+  selectedFormat: string;
+  onSelectFormat: (name: string) => void;
 
   search: string;
   onSearchChange: (value: string) => void;
@@ -39,6 +44,9 @@ export default function Sidebar({
   onSelectFavorites,
   onSelectStatic,
   onSelectVideo,
+  formatNames,
+  selectedFormat,
+  onSelectFormat,
   search,
   onSearchChange,
   formats,
@@ -50,6 +58,23 @@ export default function Sidebar({
   hasActiveFilters,
   onClearFilters,
 }: SidebarProps) {
+  // The "Formatlar" flyout menu (opens to the right of the nav button). It's positioned
+  // with `fixed` from the button's rect so it isn't clipped by the sidebar's overflow.
+  const [formatsOpen, setFormatsOpen] = useState(false);
+  const formatsBtnRef = useRef<HTMLButtonElement>(null);
+  const asideRef = useRef<HTMLElement>(null);
+  const [flyoutPos, setFlyoutPos] = useState<{ top: number; left: number } | null>(null);
+  useLayoutEffect(() => {
+    if (!formatsOpen) return;
+    const btn = formatsBtnRef.current;
+    const aside = asideRef.current;
+    if (!btn || !aside) return;
+    const b = btn.getBoundingClientRect();
+    const a = aside.getBoundingClientRect();
+    // Anchor to the sidebar PANEL's right edge (not the button's) so the menu sits
+    // fully beside the rail instead of overlapping it.
+    setFlyoutPos({ top: b.top, left: a.right + 8 });
+  }, [formatsOpen]);
   return (
     <>
       {/* Mobile backdrop */}
@@ -59,7 +84,7 @@ export default function Sidebar({
       {/* Matte glassmorphism rail: translucent bg + backdrop-blur + subtle border + soft
           shadow. Edge-to-edge off-canvas drawer below 1024px; an inset rounded glass panel
           on desktop. Brand tokens only; the flat greige page bg keeps the blur subtle by design. */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/40 backdrop-blur-2xl border-r border-white/30 shadow-2xl shadow-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-4 lg:z-auto lg:m-4 lg:h-[calc(100vh-2rem)] lg:w-64 lg:self-start lg:rounded-3xl lg:border lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside ref={asideRef} className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/40 backdrop-blur-2xl border-r border-white/30 shadow-2xl shadow-[#121115]/10 flex flex-col transition-transform duration-300 lg:sticky lg:inset-auto lg:top-4 lg:z-auto lg:m-4 lg:h-[calc(100vh-2rem)] lg:w-64 lg:self-start lg:rounded-3xl lg:border lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full overflow-y-auto no-scrollbar p-6">
 
           {/* Mobile close (wordmark removed per request) */}
@@ -82,7 +107,50 @@ export default function Sidebar({
               <Heart className={`w-4 h-4 ${section === 'favorites' ? 'fill-[#C47BE4]' : ''}`} /> {t.favorites}
               <span className={`ml-auto text-[10px] px-2 py-0.5 rounded-full ${section === 'favorites' ? 'bg-white/15' : 'bg-[#121115]/15'}`}>{favoritesCount}</span>
             </button>
+            {/* Formatlar only toggles its flyout — it does NOT switch the page. A page
+                opens only when a format is picked from the flyout (onSelectFormat). */}
+            <button
+              ref={formatsBtnRef}
+              onClick={() => setFormatsOpen((o) => !o)}
+              aria-haspopup="menu"
+              aria-expanded={formatsOpen}
+              className={navItemClass(section === 'formats')}
+            >
+              <LayoutGrid className="w-4 h-4" /> {t.navFormats}
+              <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${formatsOpen ? 'rotate-90' : ''}`} />
+            </button>
           </nav>
+
+          {/* Flyout menu — portaled to <body> so it escapes the sidebar's stacking
+              context (backdrop-blur creates one) and renders ABOVE all page content. */}
+          {formatsOpen && flyoutPos && createPortal(
+            <>
+              {/* Click-away backdrop */}
+              <div className="fixed inset-0 z-[90]" onClick={() => setFormatsOpen(false)} />
+              <ul
+                role="menu"
+                style={{ top: flyoutPos.top, left: flyoutPos.left }}
+                className="fixed z-[100] w-52 max-h-[60vh] overflow-y-auto rounded-2xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg shadow-[#121115]/10 py-1.5"
+              >
+                {formatNames.map((name) => {
+                  const active = selectedFormat === name && section === 'formats';
+                  return (
+                    <li key={name} role="none">
+                      <button
+                        role="menuitem"
+                        onClick={() => { onSelectFormat(name); setFormatsOpen(false); }}
+                        className={`w-full flex items-center justify-between gap-2 px-4 py-2 text-sm text-left transition-colors ${active ? 'bg-[#121115] text-[#C47BE4]' : 'text-[#121115] hover:bg-[#121115]/5'}`}
+                      >
+                        <span>{name}</span>
+                        {active && <Check className="w-4 h-4 shrink-0" />}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>,
+            document.body,
+          )}
 
           {/* Filters */}
           <div className="mt-7 pt-6 border-t border-[#121115]/10">
@@ -91,9 +159,13 @@ export default function Sidebar({
                 <SlidersHorizontal className="w-4 h-4 text-[#856157]" />
                 <h3 className="text-xs font-normal uppercase tracking-widest">{t.filterTitle}</h3>
               </div>
-              {hasActiveFilters && (
-                <button onClick={onClearFilters} className="text-xs text-[#856157] font-normal hover:underline">{t.clearFilters}</button>
-              )}
+              <button
+                onClick={onClearFilters}
+                disabled={!hasActiveFilters}
+                className={`text-xs font-normal transition-colors ${hasActiveFilters ? 'text-[#856157] hover:underline cursor-pointer' : 'text-[#121115]/30 cursor-not-allowed'}`}
+              >
+                {t.clearFilters}
+              </button>
             </div>
 
             {/* Animated colorful ring while typing; static border when empty. */}

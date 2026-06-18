@@ -44,10 +44,15 @@ export type TranslationStrings = {
   favorites: string;
   navStatic: string;
   navVideo: string;
+  navFormats: string;
   videoEmptyTitle: string;
   videoEmptyDesc: string;
   staticEmptyTitle: string;
   staticEmptyDesc: string;
+  formatsTitle: string;
+  formatsIntro: string;
+  formatEmptyTitle: string;
+  formatEmptyDesc: string;
   statsTitle: string;
   statsDesc: string;
   viewDemo: string;

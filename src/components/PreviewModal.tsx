@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
-import { X, Smartphone, Globe } from 'lucide-react';
+import { X, Smartphone, Globe, Monitor } from 'lucide-react';
 import type { Banner, Lang, TranslationStrings } from '../types';
 
 // The preview frames the modal can switch between. Exported so the parent's
@@ -317,6 +317,19 @@ function MobileMock({ banner, az }: { banner: Banner; az: boolean }) {
   const FEED_W = 214;
   const isStrip = orientation === 'horizontal';
 
+  // On open, pre-scroll the feed so an in-feed ad starts fully in view (strips are
+  // already pinned top/bottom, so they need no scroll). Aligns the ad's top with a
+  // small margin under the masthead instead of leaving it below the fold.
+  const feedRef = useRef<HTMLDivElement>(null);
+  const adRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (isStrip) return;
+    const feed = feedRef.current;
+    const ad = adRef.current;
+    if (!feed || !ad) return;
+    feed.scrollTop = Math.max(0, ad.offsetTop - 12);
+  }, [banner.id, isStrip]);
+
   const liveAd = (
     <AdFrame az={az}>
       <LiveCreative
@@ -352,7 +365,7 @@ function MobileMock({ banner, az }: { banner: Banner; az: boolean }) {
       </header>
 
       {/* Scrolling article feed */}
-      <div className="flex-grow overflow-y-auto px-3 py-3">
+      <div ref={feedRef} className="flex-grow overflow-y-auto px-3 py-3">
         <span className="text-[9px] font-bold uppercase tracking-widest text-[#856157]">
           {az ? 'Texnologiya' : 'Technology'}
         </span>
@@ -370,7 +383,7 @@ function MobileMock({ banner, az }: { banner: Banner; az: boolean }) {
         </div>
 
         {/* In-feed ad (vertical skyscraper or rectangle) between paragraphs. */}
-        {!isStrip && <div className="my-3 flex flex-col items-center">{liveAd}</div>}
+        {!isStrip && <div ref={adRef} className="my-3 flex flex-col items-center">{liveAd}</div>}
 
         <div className="mt-2.5">
           <TextLines rows={[100, 92, 80, 60, 70]} />
@@ -402,7 +415,7 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#121115]/90 backdrop-blur-xl overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#121115]/40 backdrop-blur-md"
       onClick={onClose}
     >
       <div
@@ -423,21 +436,9 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
             <h3 className="mt-2 text-2xl font-bold tracking-tight brand-display text-[#121115]">{banner.size}</h3>
             <p className="text-xs text-[#121115]/55 mt-0.5">{banner.ratioLabel} · {banner.size}</p>
           </div>
-          <button
-            ref={closeButtonRef}
-            onClick={onClose}
-            aria-label={t.close}
-            className="shrink-0 w-9 h-9 rounded-full bg-[#121115]/5 hover:bg-[#121115]/10 flex items-center justify-center transition-colors text-[#121115] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Canvas */}
-        <div className="bg-[#f0ede1] p-6 sm:p-8 overflow-y-auto">
-
-          {/* Frame switcher */}
-          <div className="flex items-center justify-end mb-6">
+          {/* Controls: frame switcher + close, grouped right. The switcher lives in the
+              header (not the canvas) so the mockup sits flush at the top of the canvas. */}
+          <div className="shrink-0 flex items-center gap-3">
             <div className="flex flex-wrap justify-end gap-1 bg-white/80 p-1 rounded-full border border-[#121115]/10 text-xs">
               <button
                 onClick={() => onDeviceChange('mobile')} aria-label={t.mockupPhone}
@@ -447,21 +448,33 @@ export default function PreviewModal({ banner, device, onDeviceChange, onClose, 
                 <span className="hidden sm:inline">{t.mockupPhone}</span>
               </button>
               <button
-                onClick={() => onDeviceChange('website')} aria-label={lang === 'az' ? 'Veb sayt' : 'Website'}
+                onClick={() => onDeviceChange('website')} aria-label={lang === 'az' ? 'Masaüstü' : 'Desktop'}
                 className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all ${device === 'website' ? 'bg-[#121115] text-white' : 'text-[#121115]/60 hover:text-[#121115]'}`}
               >
-                <Globe className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">{lang === 'az' ? 'Veb sayt' : 'Website'}</span>
+                <Monitor className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{lang === 'az' ? 'Masaüstü' : 'Desktop'}</span>
               </button>
             </div>
+            <button
+              ref={closeButtonRef}
+              onClick={onClose}
+              aria-label={t.close}
+              className="shrink-0 w-9 h-9 rounded-full bg-[#121115]/5 hover:bg-[#121115]/10 flex items-center justify-center transition-colors text-[#121115] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#856157]"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
+        </div>
 
-          <div className="flex items-center justify-center py-4">
+        {/* Canvas */}
+        <div className="bg-[#f0ede1] px-4 sm:px-6 pt-3 pb-4 overflow-y-auto flex-1 min-h-0">
+
+          <div className="flex items-center justify-center">
             {device === 'mobile' ? (
               /* Phone mockup: the realistic "AntHive" site rendered as a single-column
                  mobile page. Horizontal strips anchor to the top/bottom of the screen;
                  verticals & rectangles run in-feed — all scaled to the phone width. */
-              <div className="relative mx-auto w-[290px] h-[550px] bg-[#121115] rounded-[3rem] p-3 shadow-2xl border-4 border-stone-800 flex flex-col">
+              <div className="relative mx-auto w-[270px] h-[500px] bg-[#121115] rounded-[3rem] p-3 shadow-2xl border-4 border-stone-800 flex flex-col">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-5 bg-stone-800 rounded-b-2xl z-20 flex items-center justify-center">
                   <div className="w-10 h-1 bg-black rounded-full mb-1"></div>
                 </div>

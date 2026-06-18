@@ -125,6 +125,57 @@ body {
   animation: marqueeWave 8s ease-in-out infinite;
 }
 
+/* ===== Format-showcase demo animations (Formatlar section) ===== */
+/* Pop-in for overlay formats (Pop-up / Fullscreen / Click-to-Fullscreen). */
+@keyframes adPopIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.fmt-pop-in { animation: adPopIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Gentle drift for the Floating format. */
+@keyframes adDrift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(6px, -10px); }
+  50% { transform: translate(-4px, 4px); }
+  75% { transform: translate(8px, 6px); }
+}
+.fmt-drift { animation: adDrift 7s ease-in-out infinite; }
+
+/* Shimmer sweep to imply a "playing" video (Inpage / Pre-roll). */
+@keyframes adShimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.fmt-shimmer {
+  background-image: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: adShimmer 2.4s linear infinite;
+}
+
+/* Slow vertical parallax drift for the Interscroller window. */
+@keyframes adParallax {
+  0%, 100% { transform: translateY(-6%); }
+  50% { transform: translateY(6%); }
+}
+.fmt-parallax { animation: adParallax 6s ease-in-out infinite; }
+
+/* Flag-in-the-wind wave for the Floating format (skew + slight rotate, stays in place). */
+@keyframes adFlagWave {
+  0%, 100% { transform: rotate(-1.5deg) skewY(-1.5deg) translateY(0); }
+  25% { transform: rotate(1deg) skewY(1.5deg) translateY(-2px); }
+  50% { transform: rotate(-1deg) skewY(-1deg) translateY(1px); }
+  75% { transform: rotate(1.5deg) skewY(1deg) translateY(-1px); }
+}
+.fmt-flag { animation: adFlagWave 3.2s ease-in-out infinite; transform-origin: center; }
+
+/* Continuous horizontal scroll for the extended-catfish product carousel. */
+@keyframes adCarousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.fmt-carousel { animation: adCarousel 14s linear infinite; }
+
 /* Dotted texture as a pseudo-element so its fade-out mask doesn't affect the
    section's real content. Dots fade away gradually (linear) toward the bottom. */
 .premium-grain {

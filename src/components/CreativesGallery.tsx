@@ -10,7 +10,28 @@ import PreviewModal from './PreviewModal';
 import type { PreviewDevice } from './PreviewModal';
 
 // Which sidebar browsing section is active.
-export type GallerySection = 'gallery' | 'favorites' | 'static' | 'video';
+export type GallerySection = 'gallery' | 'favorites' | 'static' | 'video' | 'formats';
+
+// "Formatlar" catalog: ad formats offered (names sourced from smartbee.az/az/formats),
+// with the ones already present in this gallery — and their equivalents — removed. These
+// have no creatives wired yet, so selecting one shows a "coming soon" empty state.
+export const FORMAT_NAMES = [
+  'Inpage',
+  'Pre-roll',
+  'Catfish',
+  'Pop-up',
+  'Background',
+  'Collapsible',
+  'Fullscreen',
+  'Xəbər bloku',
+  'Expandable',
+  'Interscroller',
+  'E-commerce',
+  'Click To Fullscreen',
+  'Sticky vertical corner',
+  'Floating',
+  'Extended catfish',
+];
 
 export default function CreativesGallery() {
   const [lang, setLang] = useState<Lang>('az');
@@ -23,6 +44,8 @@ export default function CreativesGallery() {
   // intentionally-empty section (empty-state only); 'favorites' filters to faves.
   const [section, setSection] = useState<GallerySection>('gallery');
   const showOnlyFavs = section === 'favorites';
+  // Which format tab is open inside the "Formatlar" section (defaults to the first).
+  const [selectedFormat, setSelectedFormat] = useState<string>(FORMAT_NAMES[0]);
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
   const [previewDevice, setPreviewDevice] = useState<PreviewDevice>('mobile');
@@ -101,7 +124,7 @@ export default function CreativesGallery() {
   // that suppresses the grid — so applying a filter there looks like a no-op. Snap back
   // to the gallery (the grid view) whenever a filter is touched; favorites keep filtering
   // their own subset.
-  const ensureGridSection = () => { if (section === 'static' || section === 'video') setSection('gallery'); };
+  const ensureGridSection = () => { if (section === 'static' || section === 'video' || section === 'formats') setSection('gallery'); };
   const handleFilterFormat = (value: string) => { ensureGridSection(); setFilterFormat(value); };
   const handleFilterSize = (value: string) => { ensureGridSection(); setFilterSize(value); };
   const handleSearchChange = (value: string) => { ensureGridSection(); setSearch(value); };
@@ -136,10 +159,13 @@ export default function CreativesGallery() {
           t={activeTranslations}
           section={section}
           favoritesCount={favorites.length}
-          onSelectGallery={() => { goto(); setSection('gallery'); }}
+          onSelectGallery={() => { goto(); clearFilters(); }}
           onSelectFavorites={() => { goto(); setSection('favorites'); }}
           onSelectStatic={() => { goto(); setSection('static'); }}
           onSelectVideo={() => { goto(); setSection('video'); }}
+          formatNames={FORMAT_NAMES}
+          selectedFormat={selectedFormat}
+          onSelectFormat={(name) => { setSelectedFormat(name); setSection('formats'); }}
           search={search}
           onSearchChange={handleSearchChange}
           formats={formats}
@@ -166,17 +192,19 @@ export default function CreativesGallery() {
             {langToggle}
           </div>
 
-          {/* Compact hero */}
-          <section className="premium-grain border-b border-[#121115]/10 px-5 lg:px-12 pt-10 pb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#121115]/5 rounded-full text-[11px] font-medium tracking-widest text-[#121115]/80 uppercase mb-4 border border-[#121115]/10">
-              <Sparkles className="w-3.5 h-3.5 text-[#856157] animate-pulse" />
-              {activeTranslations.heroSub}
-            </span>
-            <h1 className="hero-rise text-3xl md:text-5xl font-bold tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
-              {activeTranslations.heroTitlePart1} <span className="gradient-text">{activeTranslations.heroTitleHighlight}</span> {activeTranslations.heroTitlePart2}
-            </h1>
-            <p className="mt-4 text-sm md:text-base font-medium text-[#121115]/70 max-w-2xl leading-relaxed">{activeTranslations.heroDesc}</p>
-          </section>
+          {/* Compact hero — hidden in the Formatlar section so the mock sits at the top. */}
+          {section !== 'formats' && (
+            <section className="premium-grain border-b border-[#121115]/10 px-5 lg:px-12 pt-10 pb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#121115]/5 rounded-full text-[11px] font-medium tracking-widest text-[#121115]/80 uppercase mb-4 border border-[#121115]/10">
+                <Sparkles className="w-3.5 h-3.5 text-[#856157] animate-pulse" />
+                {activeTranslations.heroSub}
+              </span>
+              <h1 className="hero-rise text-3xl md:text-5xl font-bold tracking-tight leading-[1.05] brand-display text-[#121115] max-w-3xl">
+                {activeTranslations.heroTitlePart1} <span className="gradient-text">{activeTranslations.heroTitleHighlight}</span> {activeTranslations.heroTitlePart2}
+              </h1>
+              <p className="mt-4 text-sm md:text-base font-medium text-[#121115]/70 max-w-2xl leading-relaxed">{activeTranslations.heroDesc}</p>
+            </section>
+          )}
 
                     <GalleryGrid
             banners={filteredBanners}
@@ -187,6 +215,8 @@ export default function CreativesGallery() {
             onOpenSandbox={handleOpenSandbox}
             onToggleFavorite={toggleFavorite}
             onClearFilters={clearFilters}
+            selectedFormat={selectedFormat}
+            showGalleryMedia={!hasActiveFilters}
           />
 
           {/* Slim footer */}

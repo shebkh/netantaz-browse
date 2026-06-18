@@ -12,6 +12,12 @@ dist-ssr
 # Banner asset archives — raw source kits, ~70MB, not used until Slice 7
 *.zip
 
+# Raw source asset dumps at the repo root. The app serves its copies from
+# public/static and public/video instead — these originals are redundant (~170MB)
+# and the Vite dev-server watcher also ignores them (file-lock EBUSY on Windows).
+/Statik
+/video
+
 # Stray empty placeholder file in repo root
 /netantaz-browse
 
