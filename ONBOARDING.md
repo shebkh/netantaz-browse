@@ -1,23 +1,55 @@
 # Onboarding — NetAnt Creatives Gallery (continue from here)
 
 A browsable gallery of banner-ad creatives for NetAnt (netant.az): left sidebar (AZ/EN,
-Gallery/Static/Video/Favorites nav, search + Format/Size filters, mobile drawer) and a grid
-of banner cards; clicking a card opens a view-only preview modal that frames the LIVE
-creative inside a realistic **"AntHive"** mock site — a **Mobile** phone mock and a **Website**
-mock, switchable. Bilingual AZ/EN. Built by refactoring a single-file prototype
+Gallery/Statik/Video/Favorites + **Formatlar** nav, search + Format/Size filters with an
+always-visible reset, mobile drawer) and a grid of banner cards; clicking a card opens a
+view-only preview modal that frames the LIVE creative inside a realistic **"AntHive"** mock
+site — a **Mobil** phone mock and a **Desktop** mock, switchable. **Gallery shows everything**
+(banners + static images + videos). **Statik/Video** render real assets as Instagram-style
+posts. **Formatlar** is a SmartBee-style ad-format catalog (flyout menu → full-page mock demo
+per format). Bilingual AZ/EN. Built by refactoring a single-file prototype
 (`ad_gallery_website.tsx`) into a clean Vite project, slice by slice, then ingesting real
 sample creatives, then reworking the preview to look like a real publisher page.
 
 ## Status (current)
-- **All slice + feature work (0–7, FT-1→FT-4) DONE; preview rework + visibility fixes DONE.**
-  Latest commit `725916f` on `main`. (Update this hash as new work lands.)
-  ⚠️ **`main` has 2 local commits NOT yet pushed** (`a3e01a4` preview rework, `725916f`
-  visibility fixes) — push when ready.
-- Gallery = **53 real banners**: 17 static images + 36 interactive HTML5 creatives.
+- **All slice + feature work (0–7, FT-1→FT-4) DONE; preview rework, Formatlar showcase, and
+  Instagram Statik/Video sections DONE.** Latest commit `c4b7a79` on `main`. (Update this
+  hash as new work lands.)
+- Gallery = **53 real banners** (17 static images + 36 interactive HTML5) **plus** 12 static
+  images + 4 videos shown as cards. Statik = those 12 images; Video = those 4 .mp4s.
 - `npx tsc --noEmit` = 0 errors; `npm run build` succeeds.
 - Repo: https://github.com/shebkh/netantaz-browse (PRIVATE). `gh` is authenticated as `shebkh`.
 
-## Most recent work — Preview rework + creative-visibility fixes (this session)
+## Most recent work — Formatlar showcase + Instagram media sections (latest, `c4b7a79`)
+A large user-directed session (all verified via headless Chrome screenshots, `tsc`+`build` clean):
+- **Preview modal:** device toggle "Website"→**Desktop** (Monitor icon), phone→**Mobil**; switcher
+  moved into the header; translucent backdrop; fit-to-panel (canvas scrolls, not page); mobile
+  mock pre-scrolls to the in-feed ad.
+- **Formatlar** (`FormatShowcase.tsx`): new sidebar section under Favorites. Clicking it opens a
+  **matte-blur flyout PORTALED to `document.body`** (so it overlays page content — a sidebar
+  stacking-context trap otherwise hid it) listing ad formats from smartbee.az **minus** those
+  already in the gallery (and "Olimpus"/"Display Banner"/"Sola Sürüşdür" per user). Each format
+  renders a **full-width AntHive desktop mock** demoing that format's real placement + a size
+  badge: Inpage/Pre-roll video (auto-hide / skip→player), Catfish & Extended-catfish (Samsung-
+  style carousel) footers, Background 160×600 skyscrapers, Pop-up & Fullscreen (live countdown
+  → "site opens") overlays, Collapsible, Xəbər bloku, Expandable (hover-grow), Interscroller
+  (**scroll-position-linked** parallax), E-commerce (red product grid), Click-to-Fullscreen,
+  Sticky vertical corner, Floating (flag-wave, no close, persists). Brand text = **NetAnt**.
+- **Gallery shows everything:** banners + static + videos as banner-style `MediaCard`s, appended
+  only when no filters are active (media has no format/size to filter on).
+- **Statik/Video** (`media.ts`, `InstagramPost.tsx`): read real files from `public/static` (12
+  images) and `public/video` (4 .mp4s), framed as **Instagram posts** (IG chrome, natural aspect
+  = no letterbox, no captions, hover lift+zoom). Videos **autoplay muted on hover** with a
+  bottom-right **mute/unmute** toggle. Statik = full-width 3-col masonry; **Video = centered
+  pairs** (`max-w-6xl` 2-col). Both **auto-scroll to the grid** (past the hero) on open.
+- **Filters:** reset button always visible (disabled when inactive); clicking **Gallery** resets
+  filters and returns to the grid.
+- **Tooling:** `vite.config.ts` now sets `server.watch.ignored: ['**/Statik/**','**/video/**']`
+  — the dev server was crashing with `EBUSY` when Vite's watcher hit Windows-locked `.png`s in
+  those root folders. Those redundant root dumps are also **`.gitignore`d** (~170MB); the app
+  serves the `public/` copies. Originals left on disk, untouched.
+
+## Earlier — Preview rework + creative-visibility fixes
 The preview modal was overhauled and a batch of "banners not showing / wrong size" bugs fixed.
 - **Mock site renamed BeeTimes → AntHive** (`anthive.az`).
 - **Device switch is now Mobile + Website only** — the standalone/desktop ("Müstəqil Görünüş")
